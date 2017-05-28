@@ -1,0 +1,350 @@
+0 - e Coin Number location (0 for no e Coin)
+1 - A Coin Count (updated on menu when level played at least once)
+2 - Level Set (selection icon)
+3 - Level Number
+4 - Level Icon (level info box)
+
+
+14-3F - data pointers
+If the level has an e Coin:
+40-5F - e Coin Palette
+60-17F - e Coin GFX
+180 - level name (ends with FF, data comes next)
+
+40&41 - background colour
+42 - ???
+43 - outer ring
+60 - top left corner+next tile
+
+mushroom 3 (vegetable volley) only!
+191 - gfx set
+19B - background
+40f - music
+
+
+level sets (block 2) [menu icon]
+01 - star
+02 - mushroom
+03 - flower
+04 - heart
+05 - A
+06 - B
+07 - C
+08 - D
+09 - E
+0A - F
+0B - G
+0C - H
+0D - I
+0E - J
+0F - K
+10 - L
+11 - M
+12 - N
+13 - O
+14 - P
+15 - Q
+16 - R
+17 - S
+18 - T
+19 - U
+1A - V
+1B - W
+1C - X
+1D - Y
+1E - Z
+1F - PR (promo level) 
+20 - e (last entry)
+
+level icons block 4 (level info box)
+
+00 - e+ tile (unused in main game)
+01 - glowing star
+02 - quicksand
+03 - world e level select tile
+04 - foretess
+05 - king's castle
+06 - world 5 spiral tower
+07 - pyramid
+08 - orange mushroom house
+09 - castle with square window
+0A - airship
+0B - tank with gun
+0C - "smiling" tank
+0D - tank with "mast pole" ("thin tank)
+0E - coin ship (kanji is "宝", pronounced takara)
+0F - hand
+10 - cloud
+11 - world 1 background hills
+12 - world 2 background tree
+13 - world 3 background water tile
+14 - flower
+15 - ice
+16 - muncher plant
+17 - fire
+18 - world 8 skull
+19 - hammer bro
+1A - boomerang bro
+1B - hammer bro
+1C - fire bro
+1D - summo bro
+1E - orange glitch (halfway between the e level selection tile, with 2 animations [http://i.imgur.com/MUwqFa2.png?1]
+1F - blank (last entry)
+
+music
+0 : Plains
+1 : Underground
+2 : Underwater
+3 : Fortress
+4 : Boss Battle
+5 : Airship
+6 : Hammer bros
+7 : P-Switch & Mushroom House
+8 : Hills
+9 : Castle room
+A : Clouds/Sky
+B : Underground (same as 01)
+C : Classic Overworld
+D : Classic Underground (no difference from others)
+E : Classic Underwater
+F : Classic Castle
+10 : Ghost House
+11 : No Music
+12 : No Music
+13 : Crash (GBA Glitch)
+14 : Game Selection Screen
+15 : Game Selection Screen
+16 : Mario Bros. Classic Results cut-off (in other Advance games; look at TCRF)
+17 : Crash (GBA Glitch)
+18 : Game Selection Screen
+19 : Game Selection Screen
+1A : Crash
+1B : Bonus Room
+1C : Game Selection Screen
+1D : Game Selection Screen
+1E : No Music
+1F : No Music
+20 : Game Selection Screen
+21 : Game Selection Screen
+22 : Crash
+23 : Bonus Room
+24 : Game Selection Screen
+25 : Game Selection Screen
+26 : Hills (cuts out after a while)
+27 : Ending re-arranged
+28 : Game Selection Screen
+29 : Game Selection Screen
+2A : Mario Bros Classic Stage Complete Sound
+2B : Scan Card
+2C : Game Selection Screen
+2D : Game Selection Screen
+2E : Mario Bros Classic Game Over "short"
+2F : P-Switch loop (Mario World) 
+30 : Game Selection Screen
+31 : Game Selection Screen
+32 : Crash
+33 : Scan Card
+34 : Game Selection Screen
+35 : Game Selection Screen
+36 : Crash
+37 : Music Box
+38 : Game Selection Screen
+39 : Game Selection Screen
+3A : Level Clear
+3B : Scan Card
+3C : Game Selection Screen
+3D : Game Selection Screen
+3E : World 5 The Sky (Land Segment)
+3F : World 8 Dark World
+40 : Game Selection Screen
+41 : Game Selection Screen
+42 : Hills
+43 : Scan Card
+44 : Game Selection Screen
+45 : Game Selection Screen
+46 : Scan Card
+47 : No Music
+48 : Game Selection Screen
+49 : Game Selection Screen
+4A : Course Clear with life bonus
+4B : Scan Card
+4C : Game Selection Screen
+4D : Game Selection Screen
+4E : Plains
+4F : Course Clear with life bonus
+50 : Game Selection Screen
+51 : Game Selection Screen
+52 : Game Selection Screen
+53 : Mario Bros. Classic Results cut-off
+54 : Game Selection Screen
+55 : Game Selection Screen
+56 : Mario Bros. Classic Results cut-off
+57 : Mario Bros. Classic Results cut-off
+58 : Game Selection Screen
+59 : Game Selection Screen
+5A : Crash
+5B : Scan Card
+5C : Game Selection Screen
+5D : Game Selection Screen
+5E : No Music
+5F : Crash
+60 : Game Selection Screen
+61 : Game Selection Screen
+62 : Game Selection Screen
+63 : Scan Card
+64 : Game Selection Screen
+65 : Game Selection Screen
+66 : Hills
+67 : No Music
+68 : Game Selection Screen
+69 : Game Selection Screen
+6A : Game Selection Screen
+6B : Scan Card
+6C : Game Selection Screen
+6D : Game Selection Screen
+6E : Mario Bros Classic Game Over "short"
+6F : No Music
+70 : Mario Bros Classic Game Over "short"
+71 : Game Selection Screen
+72 : Crash
+73 : Scan Card
+74 : Game Selection Screen
+75 : Game Selection Screen
+76 : Crash
+77 : No Music
+78 : Game Selection Screen
+79 : Game Selection Screen
+7A : Couse Clear
+7B : Scan Card
+7C : Game Selection Screen
+7D : Game Selection Screen
+7E : World 5
+7F : Crash
+80 : Game Selection Screen
+81 : Game Selection Screen
+82 : Hills
+83 : Scan Card
+84 : Game Selection Screen
+85 : Game Selection Screen
+86 : Scan Card
+87 : Crash
+88 : Game Selection Screen
+89 : Game Selection Screen
+8A : Couse Clear
+8B : Scan Card
+8C : Game Selection Screen
+8D : Game Selection Screen
+8E : Plains
+8F : Crash
+90 : Game Selection Screen
+91 : Game Selection Screen
+92 : No Music
+93 : No Music
+94 : SMB3 Title Screen
+95 : Game Selection Screen
+96 : Game Selection Screen
+97 : No Music
+98 : SMB3 Ttitle Screen
+99 : Game Selection Screen
+9A : Crash
+9B : SMA4 Title Screen
+9C : SMB3 Ttitle Screen
+9D : Game Selection Screen
+9E : Game Selection Screen
+9F : Game Selection Screen
+A0 : SMB3 Ttitle Screen
+A1 : Game Selection Screen
+A2 : Crash
+A3 : SMB3 Ttitle Screen
+A4 : SMB3 Ttitle Screen
+A5 : Game Selection Screen
+A6 : Hills
+A7 : World Selection Map
+A8 : SMB3 Ttitle Screen
+A9 : Game Selection Screen
+AA : Mario Bros Classic Stage Clear
+AB : World 1 Grass Land
+AC : SMB3 Ttitle Screen
+AD : Game Selection Screen
+AE : Mario Bros Classic Game Over "short"
+AF : World 2 Desert Hill
+B0 : SMB3 Ttitle Screen
+B1 : Game Selection Screen
+B2 : Crash
+B3 : World 3 Sea Side
+B4 : SMB3 Ttitle Screen
+B5 : Game Selection Screen
+B6 : Crash
+B7 : World 4 Giant Land
+B8 : SMB3 Ttitle Screen
+B9 : Game Selection Screen
+BA : Couse Clear
+BB : World 5
+BC : SMB3 Ttitle Screen
+BD : Game Selection Screen
+BE : World 5
+BF : World 5 The Sky (Sky Segment) 
+C0 : SMB3 Ttitle Screen
+C1 : Game Selection Screen
+C2 : Hills
+C3 : World 6 Winter Wonderland
+C4 : SMB3 Ttitle Screen
+C5 : Game Selection Screen
+C6 : Scan Card
+C7 : World 7
+C8 : SMB3 Ttitle Screen
+C9 : Game Selection Screen
+CA : Course Clear
+CB : World 8
+CC : SMB3 Ttitle Screen
+CD : Game Selection Screen
+CE : Plains
+CF : World 9 Warp Zona
+D0 : SMB3 Ttitle Screen
+D1 : Game Selection Screen
+D2 : No Music
+D3 : Plains
+D4 : SMB3 Ttitle Screen
+D5 : Game Selection Screen
+D6 : Plains
+D7 : Plains
+D8 : SMB3 Ttitle Screen
+D9 : Game Selection Screen
+DA : Crash
+DB : Hills
+DC : SMB3 Ttitle Screen
+DD : Game Selection Screen
+DE : No Music
+DF : Underground
+E0 : SMB3 Ttitle Screen
+E1 : Game Selection Screen
+E2 : Crash
+E3 : Underwater
+E4 : SMB3 Ttitle Screen
+E5 : Game Selection Screen
+E6 : Hills
+E7 : Fortress
+E8 : SMB3 Ttitle Screen
+E9 : Game Selection Screen
+EA : Mario Bros Classic Stage Clear
+EB : Airship
+EC : SMB3 Ttitle Screen
+ED : Game Selection Screen
+EE : Mario Bros Classic Game Over "short"
+EF : Boss Battle
+F0 : SMB3 Ttitle Screen
+F1 : Game Selection Screen
+F2 : Crash
+F3 : Hammer Bros 
+F4 : SMB3 Ttitle Screen
+F5 : Game Selection Screen
+F6 : Crash
+F7 : Bowser Battle
+F8 : SMB3 Ttitle Screen
+F9 : Game Selection Screen
+FA : Course Clear
+FB : P-Switch
+FC : SMB3 Ttitle Screen
+FD : Game Selection Screen
+FE : World 5
+FF : Invincibility

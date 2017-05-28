@@ -1,0 +1,11 @@
+Mushroom 3- ID: 3 VII
+Mushroom 4- ID: 4 I
+Mushroom 7- ID: 7 II
+Mushroom 13- ID: 13 III
+Mushroom 19- ID: 19 VIII
+Mushroom 22- ID: 22 VI
+Mushroom 24- ID: 24 IV
+Mushroom 28- ID: 28 V
+
+cmd code addere: sma4savtool.exe -a SMB3.sav .level
+cmd code removere: sma4savtool.exe -d SMB3.sav 

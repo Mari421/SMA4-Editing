@@ -1,0 +1,1187 @@
+Original Author: DJ Bouche (5/24/06)
+Secondary Author: XAIXER (5/2017)
+
+
+ECL (e-Card Level) - Uncompressed
+
+Header Bytes
+0 - e Coin Number location (0 for no e Coin)
+1 - A Coin Count (updated on menu when level played at least once)
+2 - Level Set (selection icon) (doesn't affect)
+3 - Level Number (doesn't affect)
+4 - Level Icon (level info box) (doesn't affect)
+14-3F - data pointers
+If the level has an e Coin:
+40-5F - e Coin Palette
+60-17F - e Coin GFX
+
+After the header is the level name (updated on menu when level played at least once)
+Must end Level name with FF, then you can put your level data after that.
+
+data pointers:
+for each level
+0 - Object Data
+1 - ECL Exclusive Header data (20h)
+2 - Scene-Link Data (or pipe exits/doors/etc, as some of you might call it)
+3 - Sprite Data
+4 - Block-Path Data (or eat/create data, for you LM people)
+5 - Auto-Scroll Data
+
+Object Data:
+level header (not the ECL Exclusive one)
+e-card engine: ???? ???? xL TM Sx ZG xx AD BB
+
+x = ignored
+L = length of level (pages)
+
+(note a lot of these are taken directly from SMB3)
+
+T - time
+0 = 300
+4 = 400
+8 = 200
+C = 000 (Unlimited)
+
+M - music
+0 : Plains
+1 : Underground
+2 : Underwater
+3 : Fortress
+4 : Boss Battle
+5 : Airship
+6 : Hammer bros
+7 : P-Switch & Mushroom House
+8 : Hills
+9 : Castle room
+A : Clouds/Sky
+B : Underground
+C : Classic Overworld
+D : Classic Underground
+E : Classic Underwater
+F : Classic Castle
+10 : Ghost House
+11 : No Music
+12 : No Music
+13 : Crash (GBA Glitch)
+14 : Game Selection Screen
+15 : Game Selection Screen
+16 : Mario Bros. Classic Results cut-off (in other Advance games; look at TCRF)
+17 : Crash (GBA Glitch)
+18 : Game Selection Screen
+19 : Game Selection Screen
+1A : Crash
+1B : Bonus Room
+1C : Game Selection Screen
+1D : Game Selection Screen
+1E : No Music
+1F : No Music
+20 : Game Selection Screen
+21 : Game Selection Screen
+22 : Crash
+23 : Bonus Room
+24 : Game Selection Screen
+25 : Game Selection Screen
+26 : Hills (cuts out after a while)
+27 : Ending re-arranged
+28 : Game Selection Screen
+29 : Game Selection Screen
+2A : Mario Bros Classic Stage Complete Sound
+2B : Scan Card
+2C : Game Selection Screen
+2D : Game Selection Screen
+2E : Mario Bros Classic Game Over "short"
+2F : P-Switch loop (Mario World) 
+30 : Game Selection Screen
+31 : Game Selection Screen
+32 : Crash
+33 : Scan Card
+34 : Game Selection Screen
+35 : Game Selection Screen
+36 : Crash
+37 : Music Box
+38 : Game Selection Screen
+39 : Game Selection Screen
+3A : Level Clear
+3B : Scan Card
+3C : Game Selection Screen
+3D : Game Selection Screen
+3E : World 5 The Sky (Land Segment)
+3F : World 8 Dark World
+40 : Game Selection Screen
+41 : Game Selection Screen
+42 : Hills
+43 : Scan Card
+44 : Game Selection Screen
+45 : Game Selection Screen
+46 : Scan Card
+47 : No Music
+48 : Game Selection Screen
+49 : Game Selection Screen
+4A : Course Clear with life bonus
+4B : Scan Card
+4C : Game Selection Screen
+4D : Game Selection Screen
+4E : Plains
+4F : Course Clear with life bonus
+50 : Game Selection Screen
+51 : Game Selection Screen
+52 : Game Selection Screen
+53 : Mario Bros. Classic Results cut-off
+54 : Game Selection Screen
+55 : Game Selection Screen
+56 : Mario Bros. Classic Results cut-off
+57 : Mario Bros. Classic Results cut-off
+58 : Game Selection Screen
+59 : Game Selection Screen
+5A : Crash
+5B : Scan Card
+5C : Game Selection Screen
+5D : Game Selection Screen
+5E : No Music
+5F : Crash
+60 : Game Selection Screen
+61 : Game Selection Screen
+62 : Game Selection Screen
+63 : Scan Card
+64 : Game Selection Screen
+65 : Game Selection Screen
+66 : Hills
+67 : No Music
+68 : Game Selection Screen
+69 : Game Selection Screen
+6A : Game Selection Screen
+6B : Scan Card
+6C : Game Selection Screen
+6D : Game Selection Screen
+6E : Mario Bros Classic Game Over "short"
+6F : No Music
+70 : Mario Bros Classic Game Over "short"
+71 : Game Selection Screen
+72 : Crash
+73 : Scan Card
+74 : Game Selection Screen
+75 : Game Selection Screen
+76 : Crash
+77 : No Music
+78 : Game Selection Screen
+79 : Game Selection Screen
+7A : Couse Clear
+7B : Scan Card
+7C : Game Selection Screen
+7D : Game Selection Screen
+7E : World 5
+7F : Crash
+80 : Game Selection Screen
+81 : Game Selection Screen
+82 : Hills
+83 : Scan Card
+84 : Game Selection Screen
+85 : Game Selection Screen
+86 : Scan Card
+87 : Crash
+88 : Game Selection Screen
+89 : Game Selection Screen
+8A : Couse Clear
+8B : Scan Card
+8C : Game Selection Screen
+8D : Game Selection Screen
+8E : Plains
+8F : Crash
+90 : Game Selection Screen
+91 : Game Selection Screen
+92 : No Music
+93 : No Music
+94 : SMB3 Title Screen
+95 : Game Selection Screen
+96 : Game Selection Screen
+97 : No Music
+98 : SMB3 Ttitle Screen
+99 : Game Selection Screen
+9A : Crash
+9B : SMA4 Title Screen
+9C : SMB3 Ttitle Screen
+9D : Game Selection Screen
+9E : Game Selection Screen
+9F : Game Selection Screen
+A0 : SMB3 Ttitle Screen
+A1 : Game Selection Screen
+A2 : Crash
+A3 : SMB3 Ttitle Screen
+A4 : SMB3 Ttitle Screen
+A5 : Game Selection Screen
+A6 : Hills
+A7 : World Selection Map
+A8 : SMB3 Ttitle Screen
+A9 : Game Selection Screen
+AA : Mario Bros Classic Stage Clear
+AB : World 1 Grass Land
+AC : SMB3 Ttitle Screen
+AD : Game Selection Screen
+AE : Mario Bros Classic Game Over "short"
+AF : World 2 Desert Hill
+B0 : SMB3 Ttitle Screen
+B1 : Game Selection Screen
+B2 : Crash
+B3 : World 3 Sea Side
+B4 : SMB3 Ttitle Screen
+B5 : Game Selection Screen
+B6 : Crash
+B7 : World 4 Giant Land
+B8 : SMB3 Ttitle Screen
+B9 : Game Selection Screen
+BA : Couse Clear
+BB : World 5
+BC : SMB3 Ttitle Screen
+BD : Game Selection Screen
+BE : World 5
+BF : World 5 The Sky (Sky Segment) 
+C0 : SMB3 Ttitle Screen
+C1 : Game Selection Screen
+C2 : Hills
+C3 : World 6 Winter Wonderland
+C4 : SMB3 Ttitle Screen
+C5 : Game Selection Screen
+C6 : Scan Card
+C7 : World 7 Pipe Maze
+C8 : SMB3 Ttitle Screen
+C9 : Game Selection Screen
+CA : Course Clear
+CB : World 8
+CC : SMB3 Ttitle Screen
+CD : Game Selection Screen
+CE : Plains
+CF : World 9 Warp Zone
+D0 : SMB3 Ttitle Screen
+D1 : Game Selection Screen
+D2 : No Music
+D3 : Plains
+D4 : SMB3 Ttitle Screen
+D5 : Game Selection Screen
+D6 : Plains
+D7 : Plains
+D8 : SMB3 Ttitle Screen
+D9 : Game Selection Screen
+DA : Crash
+DB : Hills
+DC : SMB3 Ttitle Screen
+DD : Game Selection Screen
+DE : No Music
+DF : Underground
+E0 : SMB3 Ttitle Screen
+E1 : Game Selection Screen
+E2 : Crash
+E3 : Underwater
+E4 : SMB3 Ttitle Screen
+E5 : Game Selection Screen
+E6 : Hills
+E7 : Fortress
+E8 : SMB3 Ttitle Screen
+E9 : Game Selection Screen
+EA : Mario Bros Classic Stage Clear
+EB : Airship
+EC : SMB3 Ttitle Screen
+ED : Game Selection Screen
+EE : Mario Bros Classic Game Over "short"
+EF : Boss Battle
+F0 : SMB3 Ttitle Screen
+F1 : Game Selection Screen
+F2 : Crash
+F3 : Hammer Bros 
+F4 : SMB3 Ttitle Screen
+F5 : Game Selection Screen
+F6 : Crash
+F7 : Bowser Battle
+F8 : SMB3 Ttitle Screen
+F9 : Game Selection Screen
+FA : Course Clear
+FB : P-Switch
+FC : SMB3 Ttitle Screen
+FD : Game Selection Screen
+FE : World 5
+FF : Invincibility
+
+S - scroll settings
+(MSb makes pipe exit level)
+0 - horizontal scroll up on flying
+1 - vertical scrolling A
+2 - free scroll
+3 - vertical scrolling B
+4 - horizontal only A
+5 - vertical scrolling C
+6 - horizontal only B
+7 - vertical scrolling D
+
+Z - level entry action
+0 - none
+2 - sliding
+4 - pipe up
+5 - pipe down
+8 - pipe left
+A - pipe up
+C - grabbing ship anchor
+E - ship autoscroll
+
+G - graphics set
+0 - *Mario
+1 - Plain
+2 - Fortress
+3 - Underground A
+4 - Sky
+5 - Pipe/Water A (Pirahna Plant)
+6 - Pipe/Water B (Water)
+7 - Mushroom House (A)
+8 - Pipe/Water C (Pipe)
+9 - Desert
+A - Ship
+B - Giant
+C - Ice
+D - Clouds
+E - Underground B
+F - Spade Bonus Room
+10 - Spade Bonus
+11 - Mushroom House B
+12 - Pipe/Water D
+13 - Hills
+14 - Plains 2
+15 - Tank
+16 - Castle
+17 - *Mario 2
+18 - *Animated A
+19 - *Animated B
+1A - *Animated C
+1B - *Animated D
+1C - *Animated P-Switch
+1D - *Animated E
+1E - *Font
+1F - *Animated F
+
+A - extra background/overlay palette
+
+D - extra background/overlay
+
+0 - no overlay
+1 - shade
+2 - no overlay 2
+3 - low cloud
+4 - no overlay 3
+5 - semishade
+6 - semishade 2
+7 - shade 2
+8 - thin clouds overlay + mist
+9 - no overlay 4
+A - no overlay 5
+B - thin clouds over background
+C - no overlay 6
+D - tide water overlay
+E - no overlay 7
+F - no overlay 8
+
+
+BB - background
+
+00 - no background
+01 - sea weed
+02 - dark scrolling clouds and lightning/thunder
+03 - inside airship and lightning/thunder
+04 - cave
+05 - plains
+06 - columns
+07 - fortress outdoors
+08 - snow trees
+09 - pipe network
+0A - green/yellow hills
+0B - dark red rocks (little vegetation)
+0C - big hills
+0D - sandy desert
+0E - pyramids
+0F - hills over the clouds
+10 - castle walls and bars
+11 - volcanoes
+12 - clouds
+13 - bonus (music)
+14 - shiny ice
+15 - dark red rocks (more vegetation)
+16 - waterfalls
+17 - mushroom house
+18 - nothing
+19 - pyramids with underground brick section
+1A - plains with ground background
+1B - bowser's lair
+1C - dark vegetation
+1D - dark hills
+1E - just below the clouds
+1F - glowing red castle walls and bars
+20 - mario bros brick background
+21 - underwater seaweed/rock 2
+22 - bowser's lair 2
+23 - dark scrolling clouds
+24 - inside airship
+25 - underwater seaweed/rock 3
+26 - underwater rocks and red plants
+27 - orange clouds
+28 - desert bricks
+29 - castle bricks with bowser portrait
+2A - starry night sky
+2B - castle walls and bars 2
+2C - boo house with windows
+2D - boo house
+2E - castle bricks
+2F - weird balls
+30 - mushrooms stars and flowers (bonus)
+31 - rainbow bricks (bonus)
+32 - blue stars (bonus)
+33 - green, lavender and cyan blocks
+34 - cave 2
+35 - pipe network 2
+36 - many hills
+37 - dark red rocks 3
+38 - hills above the clouds 2
+39 - blue minihills above the clouds
+3A - castle walls
+3B - long high waterfalls
+3C - glowing red castle walls
+3D - dark vegetation 2
+3E - long high waterfalls 2
+3F - very high waterfalls
+-- Object data, see object lists below
+
+
+e-level New Exclusive Header Data:
+0 - Screen Y boundary (low)
+2 -
+4 - ?
+6 - ?
+8 - player Y start
+9 - player X start
+A - screen Y start
+B -
+C - Object Set
+E - Music
+10-1F - ?
+
+Object Sets
+0 - world map
+1 - plain
+2 - fortress
+3 - hills
+4 - sky
+5 - pirahna plant
+6 - water
+7 - mushroom
+8 - pipe
+9 - desert
+A - ship
+B - giant
+C - ice
+D - clouds
+E - underground
+F - spade bonus
+
+Music
+0 - plains
+1 - underground
+2 - underwater
+3 - fortress
+4 - boss
+5 - airship
+6 - hammer bros
+7 - mushroom house
+8 - hilly
+9 - help (king's castle)
+A - sky
+B - underground
+C - SMB overworld
+D - SMB underground
+E - SMB underwater
+F - SMB fortress
+10- SMW Boo House
+14- SMA Menu
+
+Links:
+00 - number of links
+02 - link data goes hre
+Link Data (0xC per link):
+00 - Entry X
+01 - Entry Y
+02 - Scene ID
+04 - Exit X
+05 - Exit Y
+09 - ?
+0A - Exit Type
+
+Exit Types:
+00 - Shit-all
+01 - Pipe Up
+02 - Pipe Down
+03 - Pipe Right
+04 - Pipe Left
+
+Block-Path Data (eat/create) (uses Block-Path Sprite 0xBA):
+First byte: ILLLLLSSS
+All following bytes: TTTTTTDD
+I = Initial Direction of Platform (0 = right, 1 = left)
+L = Length of platform
+S = Speed
+T = Distance to travel
+D = Direction (0 = right, 1 = left, 2 = up, 3 = down)
+
+Auto-Scroll Data:
+format for each co-ordinate:
+XX YY SS, end with FF FF FF
+
+X = x position
+Y = y position
+s = speed
+
+If speed is too fast, the camera might scroll past it's destination and try to go back to it, which will result in an 'elastic' type of scroll. Don't scroll too fast or it will drag the player through walls.
+
+---------------------------------
+Object Data
+LL YY XX OO [MM]
+
+LL = ddllllll
+
+dd = domain
+llllll = length (ignored in domain 0)
+
+YY = Y position
+XX = X position
+
+OO = object number
+
+MM = secondary length (for five byte objects)
+
+
+
+Domain 0:
+(length does not effect domain 0 objects)
+(all domain 0 objects are 4 byte)
+
+hill backdrop
+00 - medium
+01 - small
+02 - large
+
+04 - door
+05 - purple door
+06 - vine
+
+07 - ??
+
+? blocks
+10 - fire flower
+11 - leaf
+12 - star
+13 - continue star
+14 - multicoin
+
+15 - munchers
+
+bricks
+16 - fire flower
+17 - leaf
+18 - star
+19 - continue star
+1A - multicoin
+1B - 1up
+1C - vine
+1D - p-block
+
+invisible blocks
+1E - coin
+1F - 1up
+
+note blocks
+20 - invisible
+
+21 - normal
+22 - leaf
+23 - star
+
+loose blocks
+24 - fire flower
+25 - leaf
+26 - star
+
+27 - invisible pink note block
+28 - p block
+
+29 - stage finish
+
+? blocks
+43 - kuribo's shoe
+44 - feather
+
+45 - weird pole thing
+46 - brown thing
+
+? blocks
+47 - directional coins
+
+48 - single spike right
+49 - single spike left
+
+4A -
+
+4B - SMW right sign
+4C - SMW left sign
+
+4D - instant death spike ball
+
+4E - screeen fucker
+
+4F - bonus block
+
+corner blocks
+50 - bottom right
+51 - bottom left
+52 - upper right
+53 - upper left
+
+? blocks
+55 - pwing
+56 - empty
+
+57 - weird, makes ground not scroll
+
+59 - POW block
+
+
+
+Domain 1/3:
+* = 5 byte object
+** = 4/5 byte object, length 2 is optional
+(domains 1/3 are identical)
+
+stretch platforms
+00 - white
+01 - orange
+02 - green
+03 - blue
+floating platforms
+04 - white
+05 - orange
+06 - green
+07 - blue
+
+
+08 - shrubs
+09 - gap
+0A - clouds
+*0B - stretch ground
+*0C - red stretch ground
+*0D -
+0E - water gap
+
+**0F - bricks (width, height)
+
+10 - ? coin block
+11 - brick coin block
+
+**12 - block (width, height)
+13 - 4way note block
+14 - note block
+15 - loose block
+**16 - coins (width, height)
+
+pipes
+17 - down exit
+18 - down
+19 - down end of level
+1A - up exit
+1B - up
+1C - right exit
+1D - right
+1E - left exit
+1F - left
+
+20 - bullet bill machine
+6E - upside down bullet bill machine
+
+
+21 - bridge
+
+*23 - waterfall
+*24 - water waves
+*25 - water
+*26 - water waves 2
+*27 - ?
+*28 - castle blocks
+*29 - harmless quicksand
+*2A - ?
+
+**2B - ice bricks (width,height)
+2C - 2 way pipe vertical
+2D - clouds
+2E - bonus room top
+
+hill backdrop
+2F - large
+
+56 - ! switch blocks
+57 - conveyor
+58 - smw platform
+59 - rope
+
+grass
+5A - grass - large veggie
+5B - grass - small veggie
+5C - grass - turnip
+63 - grass - coin
+64 - grass - multicoin
+65 - grass - 1up
+66 - grass - nothing
+67 - grass - poison mushroom
+69 - grass - bobomb
+7E - grass - giant turtle shell
+
+boo house blocks
+**5F - boo house blocks (width,height)
+60 - boo stairs left
+61 - boo platform
+62 - boo platform supporter (in between square)
+6C - boo stairs right
+6D - boo platform supporter
+79 - slope left
+7A - slope right
+7B - horizontal
+7C - horizontal right edge
+7D - horizontal left edge
+
+5D - smw spikes
+5E - spikes
+68 - invisible wall
+6B - bonus room vertical dbl edge
+**6A - digging sand (width,height)
+6F - ?
+70 - ?
+**71 - coin line (direction/pattern,length)
+72 - ?
+
+73 - invisible ledge
+
+tileset fucker upers
+76 - ???
+77 - ???
+
+*78 - stage finish blackness
+
+7F - smb flag pole
+**80 - smb block (height,width)
+
+hill backdrop
+81 - medium
+82 - small
+83 - large
+
+85 - door
+86 - purple door
+87 - vine
+
+88 - ??
+
+89-A9 - ??
+
+*AA - stage finish
+
+C4 - crash game block
+
+C5 - invisble water
+
+C6 - weird pole thing
+C7 - brown thing
+
+C8 - crash game block
+
+C9 - invisble water
+
+CA - crash game block
+
+CB - crash game block
+
+CC - weird
+CD - weird
+CE - weird
+
+CF - invisible water
+
+D0 - bonus room upper left corner
+
+D1 - invisible water
+
+D2 - RACSAH GAMOEM BOKC
+
+D3 - invisible water
+
+D4 - bottom right of smw sign
+
+D5 - ?
+
+D6 - ? p wing
+
+D7 - empty ?
+
+DA - top of brown thing
+
+
+-----------------
+Sprite Data:
+
+*00: -
+01: -
+02: [x04] SMW hammer bros fountain
+03: [x04] SMW hammer bros platform
+04: [x04] Stationary bullet bill
+05: [x04] UO (turning + jumpkill)
+06: Noteblock (forces mario up-down)
+07: -
+08: -
+09: Doomship anchor
+0A: 3-up moon
+0B: 1-up mushroom
+0C: Invincibility star
+0D: Power mushroom
+0E: Koopa Kid
+*0F: [0C] Bowser Statue
+value = behavior
+10: [0C] Magikoopa
+11: [0C] Magikoopa's magic
+12: [0B] Big boo
+13: [06] Wiggler
+14: [0C] Bowser statue fireball
+15: [06] SMW Parachute Goomba
+16: [06] Parachute Bobombs
+17: [06] SMW Goomba
+18: Bowser!
+19: Fireflower
+1A: SMW key
+1B: Noteblock
+1C: UO
+1D: SMB1 rising platform
+1E: Raccoon leaf
+1F: Growing beanstalk
+20: SMB1 falling platform
+21: game card
+22: game card
+23: game card
+24: Cloud platform left
+25: -
+26: Wooden platform (jump -> left)
+27: Wooden platform left-right
+28: Wooden platform up-down
+29: Spike
+2A: Walking spikeball piranha
+2B: Kuribo goomba
+2C: UO
+2D: Big fish (world 3-3)
+2E: Rising platform (bowser's castle)
+2F: Boo
+30: Walking candle flame
+31: UO
+32: UO
+33: Nipper
+34: UO (changes level background)
+35: UO (game gets stuck)
+36: Wooden platform (jump -> fall)
+37: Wooden platform left-right
+38: Wooden platform up-down
+39: Nipper
+3A: UO
+3B: Cheep cheep (world 3-2)
+3C: UO
+3D: Fire spitting nipper
+3E: Wooden platform drifting
+3F: Dry bones
+40: White block thrower
+41: Card slotmachine
+42: Cheep cheep pond leap right
+43: Cheep cheep pond leap left
+44: UO (looks like wooden platform)
+45: UO (walks random)
+46: Spikeball piranha stationary
+47: -
+48: UO (floats right + jumpkill)
+49: -
+4A: Fortress ? ball
+4B: Boom boom
+4C: Flying boom boom
+4D: [0D] smw spark
+4E: [0D] giant smw spark
+4F: UO (jumps away from mario)
+50: Bob-omb
+51: surroundive boos
+52: Small item chest
+53: Ceiling fireball
+54: UO (changes to unwalkable object)
+55: Bob-omb
+56: UO (jump = shell)
+57: UO (jump = shell)
+58: chomp thing that shoots fire and explodes
+59: fire snake thing
+5A: UO (moves diagonal)
+5B: UO (moves diagonal)
+5C: Breaking brick
+5D: Tornado
+5E: UO (moves diagonal)
+5F: UO (moves diagonal)
+60: UO (moves diagonal)
+61: Blooper
+62: Blooper + kids release
+63: Big fish spits kid
+64: Red cheep cheep
+65: Bubbles up
+66: Bubbles down
+67: Lotus flower
+68: Upside down buzy beetle
+69: Upside down spiney
+6A: Blooper + kids
+6B: Jumping brick
+6C: Green koopa troopa
+6D: Red koopa troopa
+6E: Green koopa paratroopa
+6F: Red koopa paratroopa up-down
+70: Buzy beetle
+71: Spiney
+72: Goomba
+73: Paragoomba
+74: Paragoomba + kids
+75: Lemmy koopa's ball
+76: Red cheep cheep
+77: Green cheep cheep
+78: Bullet bill
+79: Flashing bullet bill
+Giant world:
+7A: UO (big + walks)
+7B: UO (big + walks)
+7C: UO (big + walks)
+7D: UO (rises + jumpkill)
+7E: UO (jumps)
+7F: UO (rises + jumpkill)
+-End Giants
+80: Red koopa paratroopa left-right
+81: Hammer bros
+82: Boomerang bros
+83: Lakitu
+84: Red Spiny Egg
+85: Green Spiny Egg
+86: Fat hammer bros
+87: Fire bros
+88: -
+89: Chain Chomp
+8A: Thwomp
+8B: Thwomp left
+8C: Thwomp right
+8D: Thwomp ?
+8E: Thwomp ?
+8F: Thwomp ?
+90: Turn platform balance
+91: Turn platform spin
+92: Turn platform stop-spin
+93: Turn platform stop-spin
+94: Giant ? Block - 3UP
+95: Giant ? Block - Mushroom
+96: Giant ? Block - Flower
+97: Giant ? Block - Leaf
+98: Giant ? Block - Tanooki Suit
+99: Giant ? Block - Frog Suit
+9A: Giant ? Block - Hammer Suit
+*9B: [09] Charging chuck
+value = behaviour
+9C: UO (grab + kick diagonal)
+9D: Fire up
+9E: UO (falls)
+9F: Parabeetle
+A0: Piranha plant red
+A1: Piranha plant green
+A2: Piranha plant red upside down
+A3: Piranha plant green upside down
+A4: Fire piranha plant red
+A5: Fire piranha plant green
+A6: Fire piranha plant red upside down
+A7: Fire piranha plant green upside down
+A8: Arrow platform up
+A9: Arrow platform interactive
+AA: airship fan
+AB: -
+AC: Fire left
+AD: Wrench thrower
+AE: Moving Nuts
+AF: Sun
+B0: Big Cannon Ball
+B1: Fire right
+B2: Fire down
+B3: Turning interactive platform
+B4: Podobo (follows mario)
+B5: Coin
+B6: Bomb
+B7: Translucent block + slotmachine
+B8: Bouncing star
+*B9: Fire stick
+Spin Type:
+0 Center Spin Clockwise
+1 Center Spin Anti-Clockwise
+2 Clockwise
+3 Anti-Clockwise
+Bar Length:
+0 Short
+4 Medium
+8 Long
+C Very Long
+BA: Block-Path
+BB: Mobile trampoline
+BC: Shuffle blocks variable
+BD: Shuffle blocks vertical
+BE: Shuffle blocks horizontal
+BF: Clock (doesn't work)
+C0: UO (grab + kick diagonal)
+C1: Silver p-switch
+C2: Grey coin
+C3: Pow block
+C4: Empty 0 block
+C5: SMW goal
+C6: !-switch
+C7: stop screen
+C8: -
+C9: -
+*CA: ?? scrolling things down
+*CB: ?? scrolling things up
+CC: -
+CD: Coin status toadhouse block
+CE: Keyhole
+CF: Boomerang
+D0: [0D] Thwimp
+D1: Torpedo
+D2: [0D] Boney beetle
+D3: Falling spike
+D4: UO (falls)
+D5: UO (floats left-right + falling down)
+D6: [0D] (follows wall)
+D7: [0E] SMW Bat
+D8: Jumping pipe piranha plant
+D9: SMW hammer bros
+DA: Cape feather
+DB: 1-up bubble
+DC: Coin Path
+DD: Big checker block
+DE: Small checker block
+DF: SMB1 balance platform
+E0: -
+E1: -
+E2: SMB1 fall platform
+E3: UO (water sound)
+E4: Big root
+*E5: SMW2 Flippers horizontal
+0 - left entry
+1 - right entry
+*E6: SMW2 Flippers vertical
+0 - up entry
+1 - down entry
+E7: Big spike
+E8: SMW2 Spin Platform
+E9: WEIRDSHIT NEEDS ATTENTION
+EA: -
+EB: SMB2 Hooper
+EC: Rip-Van Fish
+ED: [0F] Flurry (unpickable)
+EE: [0E] Porcupo
+EF: [10] Jelectro
+F0: Monty mole
+F1: Poison mushroom
+F2: [0F] SMW2 Baby Pengiun
+F3: [0F] Stronger penguin
+F4: -
+F5: -
+*F6: weird scroller things again
+F7: -
+F8: -
+F9: E-coin
+FA: A-coin
+FB: Spin platform counter clockwise
+FC: UO (falls)
+FD: Coin status 1-up block
+*FE: Venus Fire Trap Vertical
+0 - Green Up (1 shot)
+1 - Red Down (1 shot)
+2 - Red Up (2 shot)
+3 - Red Down (2 shot)
+*FF: Venus Fire Trap Horizontal
+0 - Red Right (2 shot)
+1 - Red Left (2 shot)
+103: P-Wing
+104: flashing mushroom
+*108: object chest
+0 - frog
+1 - mushroom
+2 - flower
+3 - leaf
+4 - frog
+5 - tanooki
+6 - hammer suit
+7 - jugem's cloud
+8 - p-wing
+9 - star
+A - anchor
+B - hammer
+C - whistle
+D - music box
+E - feather
+F - boomerang
+10 - 1up
+11 - 3up
+*109: instant death spike
+value = fly type
+*10A: floating bubble
+0 - frog
+1 - mushroom
+2 - flower
+3 - leaf
+4 - frog
+5 - tanooki
+6 - hammer suit
+7 - jugem's cloud
+8 - p-wing
+9 - star
+A - anchor
+B - hammer
+C - whistle
+D - music box
+E - feather
+F - boomerang
+10 - 1up
+11 - 3up
+*10B: finish the level
+*10E: throwable egg
+value = how many times it's been used (ie, how slow is it too)
+10F: walktrhough giant tshell
+117: [14] parawiggler
+118: green koopa troopa
+119: blue boomerang bros
+11C: smb flag sprite
+*11F: lakitu
+00 - red
+01 - green
+121: weird teleport thing
+122: SMW ridable cloud
+125: Giant Boo Boss
+128: [x02] SMB Axe
+*12A: Boo
+value = chasing speed
+12B: score giver
+12C: cheep cheep on land
+*130: hammer bros platform (unridable)
+*131: whuh
+*132: whuh different color
+*133: note block thing
+138:
+139: flashing crap
+13A: like 138
+*13B: makes you pause before entering the screen it's in
+*13C:
+*13F: big boo that is nothing
+*140: weird bouncy thingy
+142: touch it and the game resets
+143: 142
+*144:
+147: untakable key
+148: 4-way note block
+14A: SMB Platform upwards 
