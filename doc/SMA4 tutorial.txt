@@ -1,0 +1,122 @@
+SMA4 e-reader Tutorial
+
+Pointers:
+
+You can be able to change pointers by setting the object data, level settings, etc to "FF FF" until you find the place to set up your own data
+in any place. For example, like Classic 1-1 is 0x1BD is "01 BD", then I would set up to "FF FF" until I find the spot. If I found the right spot to
+put my data in then I would put "0x22F" --> "2F 02". The reasons why the hex numbers were reversed because the SMA (Solar magic advance) can identify
+what address you put once you found the any spots to add your data in, but PLEASE NOTE THAT YOU WILL HAVE TO PUT "00"s otherwise you will contain an error
+for overflowing the data.
+
+Example:
+
+Object data: "73 00" -> "0x73"
+
+Level settings: "52 00" -> "0x52"
+
+Sprite data: "2F 02" -> "0x22F"
+
+Transports: "FF FF" -> xFFFF
+
+Block Movement: "FF FF" -> xFFFF 
+
+Scroll Movement Data: "93 02" -> "0x293"
+
+If you don't want to have anything to be put into your level then please use "FF FF" unlike what I did above, so you can prevent from receiving an overflow error.
+
+Object Data:
+
+Now unlike NES and SNES each object contains 3-bytes and 4-bytes, but in GBA version there is 4-bytes, and 5-bytes because this contains 32-bits.
+You can make levels from scratch by using your tools:
+
+SMB3 workshop
+SMB3 rom
+Uncompressed levels (Pm me for that)
+Solar Magic Advance
+SMA4 documents (for e-reader data, object data, sprite data, etc)
+SMA4 rom and .sav
+Hex editor
+
+Now that you have all of these tools, then that means you have to make your own level by using SMB3 workshop with SMB3 rom. You don't have to save through the rom, but
+save only for M3L level so you can be able to look at you level data in hex editor, but if its too confusing then try open your M3L level to workshop to find out what, and where you
+want to place your object in the right spot. So lets say once you set up your headers in your object data, then you have to put what object bank, length, Y position, X position, then object number.
+However if there is object that has the 2nd length, then you add an extra byte.
+
+Example:
+
+"00 00 00 00 00 00 00 00 00 00 13" <------- Only 11 bytes (length B) to set up your header, and you can add objects afterwards.
+ TT TT TT TT LL CC S? ZG G? AD BB
+       ^^ ^^
+    16-bit value
+
+SMB3 NES: "1A 00 C0 0A 12 02 02 FF" <--- Primary example of what you can see in the data of what you can convert to GBA. But, to do that here is what need to set up like this:
+
+GBA version: "12 02 02" <--- Background hill C to "00 12 02 02" then plain flat ground contains 5 bytes. Like this: "1A 00 C0 0A" into "40 1A C0 0B 0A".
+
+This is an example of how you can be able ton convert, but PLEASE USE YOUR PROGRAMMER IN YOUR WINDOWS CALCULATOR because not all of hex of the X and Y position can be the same due to the fact
+that GBA have calculated of what hex numbers and letters you're using as far as this contain a 32-bits. When, you finish then you leave "FF" at the end of the data.
+
+Level settings:
+
+There are 20 bytes for level settings as it already shown in the other document.
+
+Sprite data:
+
+"00 00 73 12 03 00 72 12 12" <--- sprite data (REMEMBER ALWAYS PUT "00"s AT THE BEGINNING IF YOU WANT YOUR SPRITES TO BE APPEARED. IF YOU'RE ADDING ENEMIES ALWAYS PUT 00 AFTER IT ACCORDING OF WHAT I SHOWED YOU. BE SURE TO PUT THE POINTERS AFTER THE SPRITE DATA, OTHERWISE YOU WILL KEEP RECEIVING OVERFLOW ERROR. )
+ ^^
+
+NOTE: If you going to use an e-coin (FA), then please be sure your sprites is space away of where it can appear because the sprite MAY NOT APPEAR if it closer to the e-coin because contains 6 bytes for the sake of the parameters
+and try to put 2 "00"s after you typed the Y postion. So, the sprite will appear as long as you put the enemies in the further distance if you want to put e-coin the main level. If not, then you can make a transport and put e-coins
+in the sub-level with no enemies, so the e-coin can appear.
+
+Transports:
+
+There were only 12 bytes for this data, because in SMA (Solar Magic Advance) didn't show specfically, however this is an example of what it
+needs to be done. Example below:
+
+   43 16 38 17 (For the downward pipe ONLY for source X, by Y "16" you MUST drop by one which is 15 because when mario enters the pipe then it can be able to take him
+                to the next room. As some others, you might do the same (or not?) according to this.)
+      
+01 00 15 38 01 00 00 01 00 00 02 00 (The arrow represents of how many pointers you want to set up for the first 2 hex.)
+^     sX sY RR ?? dX dY sX sY ?? TT
+
+From below there is an hex number that you can put for your exit types.
+
+Level Transport Exit Types
+------------------------------
+0 - Appear at X, Y (used for Doors)
+1 - Come up from pipe
+2 - Come down from pipe
+3 - Come right from pipe
+4 - Come Left from pipe
+5 - Drop from X, Y
+
+Block Movement:
+(XAIXER)
+
+Autoscroll Movement:
+
+Now, the autoscroll is what you can manually set up your own scroll depending on what X and Y coordinates you put therefore it can scroll differently. As always you put
+00's in the beginning then you can set up the coordinate until it stops to that point then you can be able to set up of whats your next scroll is going to be if you know
+of what you're doing.
+
+Example:
+
+"00 00 00 13 0D 08 19 0C 08 FF FF FF" <--- You start with 00's first, then you can put the destination of the X, Y, and speed. Tip: by using 3-byte coin in workshop you can mark it to figure out
+ ^^ ^^ ^^                                  which screen you want the autoscroll in each point you mark it. Let's say Y=13 X=19, then its "13 0D" and my speed will be "08" which it can scroll constantly.
+ XX YY SS
+
+That is the primary example of what you can do by following the tips to making it a little eaiser to track each spots as the scroll stops. However, if it scrolls to further or the Y position wasn't going up 
+then you can go back and change destination to make it better. 
+
+Example:
+
+"13 0D 08" <---- The X postion (13) scroll too further, and Y postion (0D) couldn't scroll normally. So, all you can do is to change the destination of whats right of what it suppose to scroll. So, I would change
+"13 0D 08" to "12 0A 08" so that can scroll diagonally up further until it gets to that destination. Be sure to put (69) Auto-scroll disabler onto your destination if you finish setting up your own autoscroll movements
+therefore the player won't be able to go backwards once scroll is finished.
+
+
+NOTE: In SMB3 version in GBA, there will won't be anything up there except for object data and sprites data, because everything applies to the other document if you are willing to edit maps, levels, etc. 
+If you have any questions regarding to this document that I made it here please PM XAIXER or me from board 2.
+
+My email: reynolds.edward226@gmail.com
