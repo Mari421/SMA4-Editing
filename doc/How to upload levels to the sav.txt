@@ -1,0 +1,13 @@
+These files are the .level files that contain ALL of the data that an e-reader 'Level card' would have. It is through these files that one can obtain the "e-Levels" into their Super Mario Advance 4 save file WITOUT having to swipe cards through an e-Reader, which is a tedious and equipment-heavy procedure. ALL 37 of these levels work and are fully translated into English. (With the exception of the Mad Dash level, but I for one could care LESS about that stage!)
+
+
+
+HOW TO UPLOAD THESE LEVELS INTO YOUR SAVE FILE
+
+
+1. Place the desired level(s) into the 'sma4savtool' folder.
+2. Place the desired .sav file you wish to upload them to into the same folder as well.
+(Make sure that the .sav file is 128 kb, otherwise this process will corrupt your .sav file!)
+3. Open a DOS prompt and navigate your way to the sma4savtool folder.
+4. From here, you can add or delete these levels as you see fit.
+(Refer to the 'Level names' document to see what the name of the level is for each level. If you are unsatisfied with the given name, you may select an 'alternate' named level, or just hex-edit your own name for the level, before uploading it.)

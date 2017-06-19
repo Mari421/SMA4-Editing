@@ -1,0 +1,66 @@
+HOW TO HEX EDIT THE NAMES OF .level FILES:
+
+First and foremost, OPEN the .level file you wish to edit in a Hex Editor. (XVI32 is provided here for this purpose)
+
+Depending on wether the e-Level you wish to edit has an e-Coin in it or not will determine which address line you should begin editing on.
+
+If the level does NOT have an e-Coin in it, the name data will begin at address 0x40. If it does have an e-Coin in it, the name data will begin at address 0x180. For more information on the structure of a .level file, refer to the file 'e-Level Anatomy.txt' which is located in the folder 'e-World Levels'.
+
+In addition, to view the layout and name of a .level file, you may do so in LuigiBlood's current version of Solar Magic Advance. However, be advised that the current version (v0.32 as of December 20th 2009) of the program DOES NOT save edits. It can only view them. (Solar Magic Advance is NOT included in this package, but can be downloaded from LuigiBlood's website: http://sma4ecard.blogspot.com) Now, let's get back to business.
+
+
+A level's name can have a maximum of 21 characters in it, and a null character (FF) following the last character of the name. The reason for this is because the game can only read 22 characters (including the null-terminator) without the screen glitching up in some weird way. As limiting as this is, it also forces one to be clever and concise when conceiving level names.
+
+There are a total of 256 usable characters that can consist the name of a level. Refer to 'Hex Translation Guide.xls' for more information on this.
+
+Once you have constructed your desired level by typing in hexadecimals that represent the characters of your name itself, make sure that this new string of bytes overwrites the previous string of bytes that represented the previous name.
+
+
+This next part is tricky, so pay attention here!
+
+If during your name editing process, all you did was simply modify a single hexadecimal to a name (ei, a capitalization or an edit that does NOT change the length of the bytes that the name data consists of), then all you have to do is simply save the file and it will work once you upload it to your game.
+
+HOWEVER, if during your name editing process the size of the bytes HAS changed, (ie, the name went from 15 characters to 20 characters) then there is a large chance that you will HAVE to edit the data headers as well, so that the level will properly function when uploaded into your save file!
+
+For instance, if you have edited a name that was originally 22 characters, (including the null terminator FF) and it is now only 6 characters (including the terminator) then you will have to do either ONE of the following actions:
+
+(A) Add 00 bytes for the difference of characters following the FF terminator. (so if 22 - 6 equals 16, then you will input 16 00 hexadecimals to make up for that difference in space)
+
+(B) Edit ALL the data headers by subtracting the difference in characters.
+Data headers begin at address 0x05 (the 6th byte), and last ALL THE WAY up to address 0x3F. (if you see a bunch of 00 bytes around or before this address, then don't worry about editing those 00 bytes at all!)
+
+This subtraction process can be complicated, which is why I recommend using a scientific calculator that is capable of performing hexadecimal addition, subtraction and conversion. Converting the difference in characters is important. For example, if 22 - 6 equals 16, then it's hexadecimal value will equal 10.
+
+An additional thing to keep in mind is how the data headers are formatted.
+Every two bytes refers to a certain address, and in a reverse format. For example, if the first header is references at address 0x4F, then address 0x05 will be '4F' and address 0x06 will be '00'. This format continues for the rest of the headers. So if (let's say) 0x11 equals '5B' and 0x12 equals '01', then that header is specifically referring to the hexadecimal at address 0x15B. To put it simply, the data headers from 0x05 through 0x3F act like a Table of Contents that organizes the rest of the data from the .level file so that the level itself can be functional when played on Super Mario Advance 4.
+
+Hopefully these explanations are all making sense. They should in order to proceed onwards in this documentation.
+
+Now, how does the Data Header editing process work? Let's refer back to our original example where our desired level name decreases in size from 22 bytes to 6 bytes. That's 16 extra bytes that either need to be filled by sixteen '00's, or EACH of the headers need to be subtracted by 16 or '10' in hexadecimals! Now, lets say that the first referenced hexadecimal is at address 4F (which would mean that 0x05=4F and 0x06=00) what you would do is CHANGE 0x05's address to 3F (hexadecimally 10 less than 4F) and leave 0x06 untouched! Repeat this process for the REST of the headers, until you reach the patch of 00s that buffers the data headers from your name data.
+
+If you repeat this process for all the headers, save your file AS A COPY and it should (hopefully) work once uploaded to your save. If not, then delete the level (with sma4savtool) and repeat the hex-editing process again with the original file. Trial and error is very important in this process!!!
+
+
+Now that we covered the name subtraction, what about in the event that the desired name is LONGER than before?
+
+For example, lets say that a level's name was originally 10 bytes long (including the null terminator) and is now expanded to 16 bytes long.
+
+The solutions here are similar, yet reverse to the subtraction issue.
+
+(A) you can subtract six 00 bytes, in the instance that there were originally is or more 00 hexadecimals buffering the name bytes from the first address that is referenced.
+
+(B) you can add '06' to every data header in the EXACT SAME STYLE as mentioned above.
+
+In the event that there are less than six 00 hexadecimals buffering the name from the referenced address, then you have no choice but to EDIT the data headers by that offset! For example, the name is expanded by 6 bytes, but the first address is referenced at 0x3A, which is now pushed back to address 0x40. What you would do is add that offset (06 decimal = 06 hexadecimal) to ALL the headers, and the level will function properly. (with the first two header bytes edited from "3A 00" to "40 00")
+
+
+Now, lets say that a given header reads "FF 01" and is now pushed up 16 bytes (10 in hexadecimal). You would NOW edit this header to read "0F 02"
+(since the address being called on went from 0x1FF to 0x20F) This same rule works with subtraction as well. (changing 0x30F to 0x2FF by editing "0F 03" to "FF 02") THIS IS THE ONLY INSTANCE when the second byte of a header needs to be edited!!!)
+
+And finally, if in a data header the numbers start to repeat. (ei, a pattern of "E7 05 E7 05 E7 05 E7 05") Make whatever changes to ALL OF THOSE headers! (example: given an addition of 04, the pattern would now be "EB 05 EB 05 EB 05 EB 05")
+
+
+And that's about all there is to editing BOTH the name data and the header data of a .level file. With this information in hand, you should NOW be efficiently able to edit the names of any e-Level file to whatever name you wish it to have!!!
+
+
+HAPPY LEVEL MODIFICATION!!!

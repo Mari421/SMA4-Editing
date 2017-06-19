@@ -1,0 +1,2245 @@
+~~~~~ CLASSIC 1-1 LEVEL CARD OFFSET DOCUMENTATION ~~~~~
+
+
+
+GENERAL SETTINGS
+
+- e-Coin On/Off
+- Ace-Coin Count
+- Level Set
+- Level Number
+- Level Icon
+- Level Objects
+- Level Settings
+- Level to Level Transports
+- Level Sprites
+- Block Platform Movement Vectors
+- Level Scroll Vectors
+- Level Name
+- Timer 1st Digit
+- Timer 2nd & 3rd Digit
+
+
+OVERWORLD SETTINGS
+
+- Level Length
+- Background Color
+- Pipe Functionality
+- Graphics
+- "Extra" Color
+- "Extra" Type
+- Background
+- Music
+
+
+BONUS ROOM SETTINGS
+
+- Bonus Room Background Color
+- Bonus Room Pipe Functionality
+- Bonus Room Graphics
+- Bonus Room "Extra" Color
+- Bonus Room "Extra" Type
+- Bonus Room Background
+- Bonus Room Music
+- Bonus Room Length
+
+
+OBJECT DATA
+
+- 4 Byte Objects
+- 5 Byte Objects
+- Overworld Ground Object Bank
+- Overworld Ground Length
+- Overworld Ground Y-Position
+- Overworld Ground X-Position
+- Overworld Ground Type
+
+
+OBJECT BANKS
+
+- Object Bank 0 (Plains)
+- Object Bank 4
+- Object Bank 4 (Hills)
+- Object Bank 0 (Sky/Logs; 1-3 & 1-6)
+- Object Bank 4 (5-4)
+- Object Bank 4 (Fortress)
+- Object Bank 4 (Pipe)
+- Object Bank 4 (Tank)
+- Object Bank 4 (All)
+
+
+ENEMY DATA
+
+- All Enemies
+- Overworld 1st Enemy Sprite Bank
+- Overworld 1st Enemy Sprite Type
+- Overworld 1st Enemy X-Position
+- Overworld 1st Enemy Y-Position
+- Overworld 1st Enemy Parameter
+
+
+ENEMY SPRITE BANKS
+
+- Sprite Bank 0
+- Sprite Bank 1
+- Alternate Sprite Bank 0 List
+
+
+~~~~~ GENERAL SETTINGS ~~~~~
+
+
+
+x0 - e-Coin On/Off (00)
+
+00 = No e-Coin
+01 = 1st e-Coin
+02 = 2nd e-Coin
+03 = 3rd e-Coin
+etc.
+
+(24th e-Coin is the last one)
+
+E-coin values 1-8 are the first floor.
+9-16 for second floor, 17-24 for third floor.
+The game will only display one floor however, if you only have coins 9-16 loaded, or 17-24, or 1-8.
+And only two floors if a combination of 1-8 and 9-16, or 9-16 and 17-24, or any combination whatsoever.
+
+
+
+x1 - Ace-Coin Count (01)
+
+00 = None
+01 = 1 Ace-Coin
+02 = 2 Ace-Coins
+03 = 3 Ace-Coins
+04 = 4 Ace-Coins
+05 = 5 Ace-Coins
+06 = 6 Ace-Coins (Glitches Level Select Menu Graphics)
+07 = 7 Ace-Coins (Glitches Level Select Menu Graphics)
+
+
+x2 - Level Set (01)
+
+00 = e
+01 = Star
+02 = Mushroom
+03 = Flower
+04 = Heart
+05 = A
+06 = B
+07 = C
+08 = D
+09 = E
+0A = F
+0B = G
+0C = H
+0D = I
+0E = J
+0F = K
+10 = L
+11 = M
+12 = N
+13 = O
+14 = P
+15 = Q
+16 = R
+17 = S
+18 = T
+19 = U
+1A = V
+1B = W
+1C = X
+1D = Y
+1E = Z
+1F = Promotional (Hides the Level Number)
+
+
+x3 - Level Number (01)
+
+00 = 00
+01 = 01
+02 = 02
+etc.
+
+(63 is the maximum)
+
+
+x4 - Level Icon (01)
+
+00 = e+
+01 = Star
+02 = Desert
+03 = Warp Zone
+04 = Fortress
+05 = Castle
+06 = Tower
+07 = Pyramid
+08 = Toad House (Yellow)
+09 = Ghost House
+0A = Airship
+0B = Tank
+0C = Airship (Cannon)
+0D = Airship (Small)
+0E = Coinship
+0F = Hand
+10 = Cloud
+11 = Plains
+12 = Palm Tree
+13 = Water
+14 = Flower
+15 = Ice
+16 = Piranha Plant
+17 = Volcano
+18 = Skull
+19 = Hammer Bro.
+1A = Boomerang Bro.
+1B = Sledge Bro.
+1C = Fire Bro.
+1D = Glitched Sprite
+1E = Glitched Sprite 2 (Yellow Stripes)
+1F = No Icon
+
+
+x5 - Level Objects (4E 00)
+
+4E 00 = Level works fine
+FF 00 = Turns level into corrupted shit
+
+
+x7 - Level Settings (8D 01)
+
+
+x9 - Level to Level Transports (AD 01)
+
+Level Transport format:
+
+0x000 0x02 Number of transports (ZZ)
+[REPEAT ZZ times]
+0x002 0x01 Source entrance X (This should match X location of pipe/door you can enter)
+0x003 0x01 Soucce entrance Y (Should also match pipe/door).
+0x004 0x01 Area to transport to. 0-3
+0x005 0x01 unknown
+0x006 0x01 Destination X
+0x007 0x01 Destination Y
+0x008 0x01 View screen Center X
+0x009 0x01 View screen Center Y
+0x00A 0x01 unknown
+0x00B 0x01 Exit type
+[END REPEAT]
+
+Level Transport Exit Types:
+
+0 = Appear at X, Y (used for Doors)
+1 = Come up from pipe
+2 = Come down from pipe
+3 = Come right from pipe
+4 = Come Left from pipe
+5 = Drop from X, Y
+
+
+xB - Level Sprites (B9 01)
+
+
+xD - Block Platform Movement Vectors (1F 02)
+
+For each moving block platform which exists in the level, the following format applies:
+
+0x001 0x01 Block platform properties.
+AB - A = Block length * 2. Valid values are 1-15.
+B = Block platform speed.
+0x002 0x01 First movement byte. Direction of the first movement must be right.
+[Repeat while movement byte not = 0xFF]
+0x003 0x01 Movement byte
+[End Repeat]
+
+Movement byte is in following format:
+
+AAAAAABB
+A = Number of blocks to move. (1-63)
+B = Direction to move. (0 = Right, 1 = Left, 2 = Up, 3 = Down).
+Because 0xFF is the stop platform movement command, it is not possible to move down 63 blocks, in one go, it must be done in two shorter ones.
+
+
+xF - Level Scroll Vectors (20 02)
+
+Scroll Vector format:
+
+Offset Length Description
+[REPEAT START]
+0x000 0x01 X position to travel to.
+0x001 0x01 Y position to travel to.
+0x002 0x01 Speed to travel at.
+[REPEAT END] - Repeat until X = 0xFF, Y = 0xFF, Speed = 0xFF.
+
+
+x40 - x4F - Level Name
+
+A = 00
+B = 01
+C = 02
+D = 03
+E = 04
+F = 05
+G = 06
+H = 07
+I = 08
+J = 09
+K = 0A
+L = 0B
+M = 0C
+N = 0D
+O = 0E
+P = 0F
+Q = 10
+R = 11
+S = 12
+T = 13
+U = 14
+V = 15
+W = 16
+X = 17
+Y = 18
+Z = 19
+a = 20
+b = 21
+c = 22
+d = 23
+e = 24
+f = 25
+g = 26
+h = 27
+i = 28
+j = 29
+k = 2A
+l = 2B
+m = 2C
+n = 2D
+o = 2E
+p = 2F
+q = 30
+r = 31
+s = 32
+t = 33
+u = 34
+v = 35
+w = 36
+x = 37
+y = 38
+z = 39
+0 = 76
+1 = 77
+2 = 78
+3 = 79
+4 = 7A
+5 = 7B
+6 = 7C
+7 = 7D
+8 = 7E
+9 = 7F
+
+Other Characters:
+0123456789 = E4 - ED (supertyped)
+0123456789 = EE - F7 (subtyped)
+'?!- ' = E0=E3
+[PR] = FE
+[NULL] = FF
+
+
+x4E - Timer 1st Digit (03)
+
+00 = 10XX
+01 = 01XX
+02 = 02XX
+03 = 03XX
+04 = 04XX
+05 = 05XX
+06 = 06XX
+07 = 07XX
+08 = 08XX
+09 = 09XX
+10 = 10XX
+11 = 11XX
+12 = 12XX
+13 = 13XX
+etc.
+
+(10 and above won't show in the status bar timer, but do work)
+
+
+x4F - Timer 2nd & 3rd Digit (00)
+
+00 = X00
+01 = X01
+02 = X02
+03 = X03
+04 = X04
+05 = X05
+06 = X06
+07 = X07
+08 = X08
+09 = X09
+10 = X10
+11 = X11
+12 = X12
+13 = X13
+etc.
+
+
+~~~~~ OVERWORLD SETTINGS ~~~~~
+
+
+
+x52 - Level Length (EE)
+
+The higher the number, the longer the level.
+Each number adds another 0F to the level.
+
+
+x53 - Background Color (84)
+
+00 = Black
+01 = Black
+02 = Black
+03 = Black
+04 = Sky Blue
+05 = Sky Blue
+06 = Sky Blue
+07 = Sky Blue
+08 = Blue
+09 = Blue
+0A = Blue
+0B = Blue
+0C = Orange (Desert Level)
+0D = Orange (Desert Level)
+0E = Orange (Desert Level)
+0F = Orange (Desert Level)
+10 = Ice Level
+11 = Ice Level
+12 = Ice Level
+13 = Ice Level
+14 = Dark Blue 1
+15 = Dark Blue 1
+16 = Dark Blue 1
+17 = Dark Blue 1
+18 = Light Blue
+19 = Light Blue
+1A = Light Blue
+1B = Light Blue
+1C = Dark Blue 2
+1D = Dark Blue 2
+1E = Dark Blue 2
+1F = Dark Blue 2
+
+
+x54 - Pipe Functionality (CX)
+
+CX = Pipe takes you to Bonus Room
+Anything else = Pipe takes you back to the Map Screen
+
+
+x55 - Graphics
+
+00 = Mario
+01 = Plains
+02 = Fortress
+03 = Cave A
+04 = Sky
+05 = Pipe/water A (Pirahna)
+06 = Pipe/water B (Water)
+07 = Toadhouse
+08 = Pipe/water C (Pipe)
+09 = Desert
+0A = Ship
+0B = Giant
+0C = Ice
+0D = Clouds
+0E = Cave B
+0F = Spade Bonus Room
+10 = Spade Bonus
+11 = Toadhouse B
+12 = Pipe/ater D
+13 = Hills
+14 = Plains 2
+15 = Tank
+16 = Castle
+17 = Mario 2
+18 = Animated A
+19 = Animated B
+1A = Animated C
+1B = Animated D
+1C = Animated P-switch
+1D = Animated E
+1E = Font
+1F = Animated F
+
+
+x57 - "Extra" Color (0X)
+
+0X = Black
+1X = Blue
+2X = White 1
+3X = Dark Blue
+4X = Dark Green
+5X = Dark Brown
+6X = Dark Gray and Dark Green
+7X = Blue
+8X = Black
+9X = Dark gray
+AX = White 2
+BX = *Use isn't recommend
+CX = *Use isn't recommend
+DX = *Use isn't recommend
+EX = *Use isn't recommend
+FX = *Use isn't recommend
+
+
+x57 - "Extra" Type (X0)
+
+X0 = Nothing
+X1 = Very High Water(doesn't act like it)
+X2 = Clouds (like 1-1)
+X3 = Ship Fog(only on ship level)
+X4 = Ship Fog(only on ship level)
+X5 = Low Water(doesn't act like it)
+X6 = Weird water
+X7 = Very High Water(Bg moves high)
+X8 = Fog 
+X9 = Sub Background of Fortress
+XA = Sub Background of 1-5
+XB = 3-7 Clouds
+XC = Nothing?
+XD = Ship water (8-Ship) 
+XE = Nothing?
+XF = Sub Background of Bowser's Castle
+
+
+x58 - Background (05)
+
+00 = Nothing
+01 = Underwater 1
+02 = *Weird (with lightning. Airship?)
+03 = Ship boss room (with lightning)
+04 = Cave entry (1-5)
+05 = Plains
+06 = Dungeon
+07 = Anchors Away
+08 = Snow
+09 = Pipe
+0A = Hills
+0B = Cave
+0C = Big Land
+0D = Desert 1
+0E = Desert 2
+0F = High Hills
+10 = Prison 1
+11 = Volcano
+12 = Clouds(Won't scroll)
+13 = Bonus Area
+14 = Ice Cave
+15 = Cave
+16 = WaterFall 1
+17 = Mushroom House
+18 = Snow Hills
+19 = Sub area of 7-2
+1A = Plains (different one)
+1B = Bowser's Castle 1
+1C = Leaves(8-1)
+1D = Night Hills(8-2)
+1E = WaterFall 2
+1F = Prison 2
+20 = 5-1 Bonus Area
+21 = Underwater 2
+22 = Bowser's Castle 2
+23 = *Weird (Coin ship?)
+24 = Ship boss room (without lightning)
+25 = Underwater 3
+26 = Underwater 4
+27 = Orange clouds
+28 = Orange bricks
+29 = Bowser's Castle 3
+2A = Night Sky
+2B = Prison 3
+2C = Ghost House 1
+2D = Ghost House 2
+2E = Bowser's Castle 3
+2F = *Weird
+30 = Minigames 1
+31 = Minigames 2
+32 = Minigames 3
+33 = Colored Blocks
+34 = Cave entry (without sky)
+35 = Pipe
+36 = Hills (high position)
+37 = Cave
+38 = Snow Hills (high position)
+39 = Blue Hills
+3A = Prison 4
+3B = WaterFall (different position)
+3C = Prison 5
+3D = Leaves (without night sky)
+3E = WaterFall (different position)
+3F = WaterFall (different position)
+
+
+x19B - Music (0C)
+
+00 = Plains
+01 = Underground/Bonus
+02 = Underwater
+03 = Fortress
+04 = Boss Battle
+05 = Airship
+06 = Hammer bros
+07 = P-Switch/Mushroom House
+08 = Hills/Athletic
+09 = Castle room
+0A = Clouds/Sky
+0B = Underground
+0C = Classic Overworld
+0D = Classic Underground
+0E = Classic Underwater
+0F = Classic Castle	
+10 = Ghost House
+11 = No Music
+12 = No Music
+13 = Crash
+14 = Game Select Menu
+15 = Game Select Menu (Same as above)
+16 = Very short sample with drums
+17 = Crash
+18 = Game Select Menu (Same as above)
+19 = Game Select Menu (Same as above)
+1A = Crash
+1B = Bonus Room
+1C = Game Select Menu (Same as above)
+1D = Game Select Menu (Same as above)
+1E = No Music
+1F = No Music
+20 = Game Select Menu (Same as above)
+21 = Game Select Menu (Same as above)
+22 = Crash
+23 = Bonus Room (Same as above)
+24 = Game Select Menu (Same as above)
+25 = Game Select Menu (Same as above)
+26 = Hills/Athletic (Stops after half of the track has played)
+27 = Princess Saved & Credits
+28 = Game Select Menu (Same as above)
+29 = Game Select Menu (Same as above)
+2A = Flagpole Sliding Sound
+2B = e-Reader Connect Screen
+2C = Game Select Menu (Same as above)
+2D = Game Select Menu (Same as above)
+2E = Game Over
+2F = !-Switch (SMW P-Switch Music)
+30 = Game Select Menu (Same as above)
+31 = Game Select Menu (Same as above)
+32 = Crash
+33 = e-Reader Connect Screen (Same as above)
+34 = Game Select Menu (Same as above)
+35 = Game Select Menu (Same as above)
+36 = Crash
+37 = Music Box
+38 = Game Select Menu (Same as above)
+39 = Game Select Menu (Same as above)
+3A = Level Finished
+3B = e-Reader Connect Screen (Same as above)
+3C = Game Select Menu (Same as above)
+3D = Game Select Menu (Same as above)
+3E = World 5 Map (Ground)
+3F = World 8 Map
+40 = Game Select Menu (Same as above)
+41 = Game Select Menu (Same as above)
+42 = Hills/Athletic (Stops after half of the track has played)
+43 = e-Reader Connect Screen (Same as above)
+
+(I didn't check any further, but the rest of the Map Music is probably there aswell)
+
+
+~~~~~ BONUS ROOM SETTINGS ~~~~~
+
+
+
+x229 - Bonus Room Background Color (86)
+
+00 = Black
+01 = Black
+02 = Black
+03 = Black
+04 = Sky Blue
+05 = Sky Blue
+06 = Sky Blue
+07 = Sky Blue
+08 = Blue
+09 = Blue
+0A = Blue
+0B = Blue
+0C = Orange (Desert Level)
+0D = Orange (Desert Level)
+0E = Orange (Desert Level)
+0F = Orange (Desert Level)
+10 = Ice Level
+11 = Ice Level
+12 = Ice Level
+13 = Ice Level
+14 = Dark Blue 1
+15 = Dark Blue 1
+16 = Dark Blue 1
+17 = Dark Blue 1
+18 = Light Blue
+19 = Light Blue
+1A = Light Blue
+1B = Light Blue
+1C = Dark Blue 2
+1D = Dark Blue 2
+1E = Dark Blue 2
+1F = Dark Blue 2
+
+
+x22A - Bonus Room Pipe Functionality (AX)
+
+AX = Pipe takes you back to Overworld
+
+
+x22B - Bonus Room Graphics (01)
+
+00 = Mario
+01 = Plains
+02 = Fortress
+03 = Cave A
+04 = Sky
+05 = Pipe/water A (Pirahna)
+06 = Pipe/water B (Water)
+07 = Toadhouse
+08 = Pipe/water C (Pipe)
+09 = Desert
+0A = Ship
+0B = Giant
+0C = Ice
+0D = Clouds
+0E = Cave B
+0F = Spade Bonus Room
+10 = Spade Bonus
+11 = Toadhouse B
+12 = Pipe/ater D
+13 = Hills
+14 = Plains 2
+15 = Tank
+16 = Castle
+17 = Mario 2
+18 = Animated A
+19 = Animated B
+1A = Animated C
+1B = Animated D
+1C = Animated P-switch
+1D = Animated E
+1E = Font
+1F = Animated F
+
+
+x22D - Bonus Room "Extra" Color (0X)
+
+0X = Black
+1X = Blue
+2X = White 1
+3X = Dark Blue
+4X = Dark Green
+5X = Dark Brown
+6X = Dark Gray and Dark Green
+7X = Blue
+8X = Black
+9X = Dark gray
+AX = White 2
+BX = *Use isn't recommend
+CX = *Use isn't recommend
+DX = *Use isn't recommend
+EX = *Use isn't recommend
+FX = *Use isn't recommend
+
+
+x22D - Bonus Room "Extra" Type (X0)
+
+X0 = Nothing
+X1 = Very High Water(doesn't act like it)
+X2 = Clouds (like 1-1)
+X3 = Ship Fog(only on ship level)
+X4 = Ship Fog(only on ship level)
+X5 = Low Water(doesn't act like it)
+X6 = Weird water
+X7 = Very High Water(Bg moves high)
+X8 = Fog 
+X9 = Sub Background of Fortress
+XA = Sub Background of 1-5
+XB = 3-7 Clouds
+XC = Nothing?
+XD = Ship water (8-Ship) 
+XE = Nothing?
+XF = Sub Background of Bowser's Castle
+
+
+x22E - Bonus Room Background (13)
+
+00 = Nothing
+01 = Underwater 1
+02 = *Weird (with lightning. Airship?)
+03 = Ship boss room (with lightning)
+04 = Cave entry (1-5)
+05 = Plains
+06 = Dungeon
+07 = Anchors Away
+08 = Snow
+09 = Pipe
+0A = Hills
+0B = Cave
+0C = Big Land
+0D = Desert 1
+0E = Desert 2
+0F = High Hills
+10 = Prison 1
+11 = Volcano
+12 = Clouds(Won't scroll)
+13 = Bonus Area
+14 = Ice Cave
+15 = Cave
+16 = WaterFall 1
+17 = Mushroom House
+18 = Snow Hills
+19 = Sub area of 7-2
+1A = Plains (different one)
+1B = Bowser's Castle 1
+1C = Leaves(8-1)
+1D = Night Hills(8-2)
+1E = WaterFall 2
+1F = Prison 2
+20 = 5-1 Bonus Area
+21 = Underwater 2
+22 = Bowser's Castle 2
+23 = *Weird (Coin ship?)
+24 = Ship boss room (without lightning)
+25 = Underwater 3
+26 = Underwater 4
+27 = Orange clouds
+28 = Orange bricks
+29 = Bowser's Castle 3
+2A = Night Sky
+2B = Prison 3
+2C = Ghost House 1
+2D = Ghost House 2
+2E = Bowser's Castle 3
+2F = *Weird
+30 = Minigames 1
+31 = Minigames 2
+32 = Minigames 3
+33 = Colored Blocks
+34 = Cave entry (without sky)
+35 = Pipe
+36 = Hills (high position)
+37 = Cave
+38 = Snow Hills (high position)
+39 = Blue Hills
+3A = Prison 4
+3B = WaterFall (different position)
+3C = Prison 5
+3D = Leaves (without night sky)
+3E = WaterFall (different position)
+3F = WaterFall (different position)
+
+
+x29A - Bonus Room Music (0D)
+
+00 = Plains
+01 = Underground/Bonus
+02 = Underwater
+03 = Fortress
+04 = Boss Battle
+05 = Airship
+06 = Hammer bros
+07 = P-Switch/Mushroom House
+08 = Hills/Athletic
+09 = Castle room
+0A = Clouds/Sky
+0B = Underground
+0C = Classic Overworld
+0D = Classic Underground
+0E = Classic Underwater
+0F = Classic Castle	
+10 = Ghost House
+11 = No Music
+12 = No Music
+13 = Crash
+14 = Game Select Menu
+15 = Game Select Menu (Same as above)
+16 = Very short sample with drums
+17 = Crash
+18 = Game Select Menu (Same as above)
+19 = Game Select Menu (Same as above)
+1A = Crash
+1B = Bonus Room
+1C = Game Select Menu (Same as above)
+1D = Game Select Menu (Same as above)
+1E = No Music
+1F = No Music
+20 = Game Select Menu (Same as above)
+21 = Game Select Menu (Same as above)
+22 = Crash
+23 = Bonus Room (Same as above)
+24 = Game Select Menu (Same as above)
+25 = Game Select Menu (Same as above)
+26 = Hills/Athletic (Stops after half of the track has played)
+27 = Princess Saved & Credits
+28 = Game Select Menu (Same as above)
+29 = Game Select Menu (Same as above)
+2A = Flagpole Sliding Sound
+2B = e-Reader Connect Screen
+2C = Game Select Menu (Same as above)
+2D = Game Select Menu (Same as above)
+2E = Game Over
+2F = !-Switch (SMW P-Switch Music)
+30 = Game Select Menu (Same as above)
+31 = Game Select Menu (Same as above)
+32 = Crash
+33 = e-Reader Connect Screen (Same as above)
+34 = Game Select Menu (Same as above)
+35 = Game Select Menu (Same as above)
+36 = Crash
+37 = Music Box
+38 = Game Select Menu (Same as above)
+39 = Game Select Menu (Same as above)
+3A = Level Finished
+3B = e-Reader Connect Screen (Same as above)
+3C = Game Select Menu (Same as above)
+3D = Game Select Menu (Same as above)
+3E = World 5 Map (Ground)
+3F = World 8 Map
+40 = Game Select Menu (Same as above)
+41 = Game Select Menu (Same as above)
+42 = Hills/Athletic (Stops after half of the track has played)
+43 = e-Reader Connect Screen (Same as above)
+
+(I didn't check any further, but the rest of the Map Music is probably there aswell)
+
+
+x2C0 - Bonus Room Length (0F)
+
+The higher the number, the longer the level.
+Each number adds another 0F to the level.
+
+
+~~~~~ OBJECT DATA ~~~~~
+
+
+
+x59 - x18B = Overworld Objects
+x22F - x28C = Bonus Room Objects
+
+The following format applies:
+
+- 4 Byte Objects:
+
+AABBBBBB CC DD EE
+A = Object Bank (0, 1, 4, 8 = Pointers)
+B = Length (0 is one tile, each higher digit is one more tile in lenght)
+CC = Y-Position
+DD = X-Position
+EE = Object Type
+
+- 5 Byte Objects:
+
+AABBBBBB CC DD EE FF
+A = Object Bank (0, 1, 4, 8 = Pointers)
+B = Length (0 is one tile, each higher digit is one more tile in lenght)
+CC = Y-Position
+DD = X-Position
+EE = Object Type
+FF = Multiplies the length of the first lenght byte, or one is height while the other is length
+
+
+Example 4-Byte Object:
+
+
+x59 - Overworld Ground Object Bank (4X)
+
+4X = Object Bank 4
+
+
+x59 - Overworld Ground Length (X0)
+
+X0 = 1 Block wide
+X1 = 2 Blocks wide
+X2 = 3 Blocks wide
+X3 = 4 Blocks wide
+etc.
+
+(Only needed if clouds are used as ground)
+
+
+x5A - Overworld Ground Y-Position (1A)
+
+...
+18 = Moves the ground 2 blocks higher
+19 = Moves the ground 1 block higher
+1A = Lower Screen Border
+1B = Disappears
+
+(The lower the number, the higher moves the ground)
+
+
+x5B - Overworld Ground X-Position (00)
+
+00 = Left Level Border
+01 = Moves 1 block to the right
+02 = Moves 2 blocks to the right
+etc.
+
+
+x5C - Overworld Ground Type (0B)
+
+0A = Clouds
+0B = Normal Ground
+0C = Underwater Ground
+
+
+~~~~~ OBJECT BANKS ~~~~~
+
+
+
+0X = Object Bank 0
+1X = Object Bank 1
+4X = Object Bank 4
+8X = Object Bank 8
+
+
+- Object Bank 0 (Plains):
+
+00 Background Hills A
+01 Background Hills B
+02 Background Hills C
+03 Nothing
+04 Door (CAN go in)
+05 Weird Door (CAN'T go in)
+06 Vine
+07 Weird Background
+08-0F *Crash*
+10 '?' with Flower
+11 '?' with Leaf
+12 '?' with Star
+13 '?' with Single coin
+14 '?' with 10 coins
+15 Muncher
+16 Brick with Flower
+17 Brick with Leaf
+18 Brick with Star
+19 Brick with Single coin
+1A Brick with 10 coins
+1B Brick with 1-UP
+1C Brick with Wine
+1D Brick with P-Switch
+1E Invisible Coin
+1F Invisible 1-UP
+20 Invisible Note Block
+21 Note Block with Flower
+22 Note Block with Leaf
+23 Note Block with Star
+24 Wooden Block with Flower
+25 Wooden Block with Leaf
+26 Wooden Block with Star
+27 Red Invisible Note Block
+28 P-Switch
+29 Level Ending
+2A-42 *Crash*
+43 '?' with Shoe
+44 '?' with Feather
+45 Unknown Background Object
+46 Door(different from 04)
+47 '?' with directional coins
+48 Downward Green Spikes
+49 Downward Green Spikes
+4A Unknown
+4B SMW Goal Sign
+4C Reversed SMW Goal Sign
+4D Red Spike Ball
+4E Unknown : Scroll will become mad
+4F Wall from bonus level
+50 Left triangle block
+51 Right triangle block
+52 Upside down Left triangle block
+53 Upside down Right triangle block
+54 Unknown White Block
+55 '?' with P-Wing
+56 '?' with Nothing
+57 Nothing
+58 Nothing
+59 POW Block
+5A *Crash*
+5B *Crash*
+5C *Crash*
+5D *Crash*
+5E *Crash*
+5F *Crash*
+60-FF *Untested*
+
+
+- Object Bank 4:
+
+00 White block platform (extends to ground)
+01 Orange block platform (extends to ground)
+02 Green block platform (extends to ground)
+03 Blue block platform (extends to ground)
+04 White block platform (floating)
+05 Orange block platform (floating)
+06 Green block platform (floating)
+07 Blue block platform (floating)
+08 Background Bushes
+09 Gap
+0A Cloud platform
+0B Flat ground (5 bytes)
+0C Underwater ground (5 bytes)
+0D Nothing
+0E Underwater Gap
+0F Bricks
+10 '?' blocks with single coin
+11 Bricks with single coin
+12 Wooden blocks
+13 Colored Note Blocks - movable four directions
+14 Note Blocks - movable two directions
+15 Wooden Blocks - movable
+16 Coins
+17 Downward Pipe (CAN go down)
+18 Downward Pipe (CAN'T go down)
+19 Downward Pipe (CAN go down;; ignores pointers)
+1A Upward Pipe (CAN go up)
+1B Upward Pipe (CAN'T go up)
+1C Rightward Pipe (CAN go in)
+1D Rightward Pipe (CAN'T go in)
+1E Leftward Pipe (CAN go in)
+1F Leftward Pipe (CAN'T go in)
+20 Bullet Bill Machine
+21 Bridge
+22 Silver Coins (appear when you hit a P-Switch)
+23 Waterfall (5 bytes)
+24 Water (moves to left) (5 bytes)
+25 Water (still) (5 bytes)
+26 Water (moves to right) (5 bytes)
+27 Weird Background Object (5 bytes)
+28 Blue X-Blocks (5 bytes)
+29 Weird Quicksand (doesn't act like it) (5 bytes)
+2A Weird Orange Background (5 bytes)
+2B White Turtle Blocks
+2C Double-Ended Vertical Pipe
+2D Cloud platform
+2E Bonus Level Wall? (5 bytes)
+2F Background Hills D
+30-50 *Crash*
+51 Mushroom Blocks from SMB2 (5 bytes)
+52 '1' Blocks (5 bytes)
+53 '2' Blocks (5 bytes)
+54 '3' Blocks (5 bytes)
+55 Unbreakable silver bricks (5 bytes)
+56 Line Block
+57 Rightward conveyor belt
+58 Blue Platform
+59 Rope (it can use like the wines)
+5A Nothing
+5B Nothing
+5C Nothing
+5D Downward Spikes(Castle)
+5E Downward Spikes(Ghost House?)
+5F White Blocks(5 bytes)
+60 Ghost House Stairs
+61 Ghost House Platform?
+62 Ghost House Background?
+63 Nothing
+64 Nothing
+65 Nothing
+66 Nothing
+67 Nothing
+68 Nothing
+69 Nothing
+6A Sand from SMB2 (5 bytes)
+6B *Crash*
+6C *Crash*
+6D *Crash*
+6E *Crash*
+6F Weird Background (5 bytes)
+70 Nothing (5 bytes)
+71 Coins (5 bytes)
+72 *Unknown and Weird* (5 bytes)
+73 *Unknown and Weird* (5 bytes)
+74 *Unknown and Weird* (5 bytes)
+75 *Unknown and Weird* (5 bytes)
+76 Background Eraser? (First Length : if this is 1, background will not show up.)(5 bytes)
+77 Change "extra" position? (First Length : if this is 1, extra will change position.)(5 bytes)
+78 *Crash*
+79 *Crash*
+7A-FF *Untested*
+
+
+- Object Bank 4 (Hills):
+
+32 - 30 degree slope /
+33 - 30 dgree upside down slope \ 
+34 - 45 degree slope upside down /
+35 - 30 degree slope \ with water
+36 - 30 degree slope / green with mudwater (glitched)
+37 - 36 but upside down \
+38 - 36 but upside down /
+39 - glitched solid block?
+3A - solid left wall
+3B - 3A with water
+3C - nothing? erases others?
+3D - same as 3C
+3E - water (lots)
+3F - xx's (glitched) (lots)
+43- ground (top level)
+
+
+- Object Bank 0 (Sky/Logs 1-3 & 1-6):
+
+00 - nothing
+01 - nothing
+02 - hanging support
+03 - hanging suport
+04 - wooden pole (bg) (support beam)
+05 - door
+06 - ?
+07 - line lift endpiece
+08 - crash
+09 - crash
+0A - crash
+0B - crash
+0C - crash
+0D - crash
+0E - crash
+0F - crash
+10 '?' with Flower
+11 '?' with Leaf
+12 '?' with Star
+13 '?' with Single coin
+14 '?' with 10 coins
+15 Muncher
+16 Brick with Flower
+17 Brick with Leaf
+18 Brick with Star
+19 Brick with Single coin
+1A Brick with 10 coins
+1B Brick with 1-UP
+1C Brick with Wine
+1D Brick with P-Switch
+1E Invisible Coin
+1F Invisible 1-UP
+20 Invisible Note Block
+21 Note Block with Flower
+22 Note Block with Leaf
+23 Note Block with Star
+24 Wooden Block with Flower
+25 Wooden Block with Leaf
+26 Wooden Block with Star
+27 Red Invisible Note Block
+28 P-Switch
+29 Level Ending
+
+
+- Object Bank 4 (5-4):
+
+00- wooden platform (5 bytes)
+01- thick wooden thing that goes through all?
+02-thick wooden block of length
+03-little bushes
+04-double layer little bushes
+05-"cookie"style jump through platform
+06-glitched red jump thourgh platform
+07-straight line for lifts
+08-vertical line for lifts
+09- \ line for lifts
+0A- / line for lifts
+0B-glitched cloud background
+0C-steep \ line for lifts
+0D-steep / line for lifts
+0E-cloud platform  (jump through)
+0F-standdard bricks
+10- coin blocks 
+11- brcks with single coin
+12- wooden block
+13- 4 directional note blocks
+14- 2 directional note blocks
+15- 2 directional wooden blocks
+16- coin
+17- downward pipe (can go down)
+18- downward pipe (can't go down) 
+19- Downward Pipe (CAN go down;; ignores pointers)
+1A- Upward Pipe (CAN go up)
+1B- Upward Pipe (CAN'T go up)
+1C- Rightward Pipe (CAN go in)
+1D- Rightward Pipe (CAN'T go in)
+1E- Leftward Pipe (CAN go in)
+1F- Leftward Pipe (CAN'T go in)
+20- bullet bill machine
+21- bridge
+22- Silver Coins (appear when you hit a P-Switch) (presumabably)
+23- Waterfall (5 bytes)
+24- Water (moves to left) (5 bytes)
+25- Water (still) (5 bytes)
+26- Water (moves to right) (5 bytes)
+27- Weird Background Object (5 bytes)
+28- Blue X-Blocks (5 bytes) (glitched)
+29- Weird Quicksand (doesn't act like it) (5 bytes) (purle)
+2A- odd blocks with ropes
+2B- white turtle blocks
+2C- Double-Ended Vertical Pipe
+2D- solid platforms (glitched)
+2E- little bushes, double layered, solid block
+2F- solid red block platform
+30- donut blocks
+31-left moving conveyor belt
+32-right moving conveyor belt
+33- flashing jelectros (solid platform)
+34- solid platform (glitched)
+35-jugem's cloud platform
+36- nipper solid plants
+37- glitched jump-through platform
+38- ????? nothing?
+39- ????? nothing?
+3A- cable/rope (non climb)
+3B- cable/rope (non-climb)
+3C- wooden stand/leg (bg)
+3D- door (can go through)
+3E- piece of black end of level bg
+3F- piece of spiral cloud bg
+
+
+- Object Bank 4 (Fortress):
+
+00 - blue pillars
+01 - lot of pilars?
+03 - bg/ nothing
+04 - nothing
+05 - open door
+06 - nothinf
+07 - nothing
+08 - bg ropes (non climb)
+09 - ?? Solid platform
+0A - sliding boo platform
+0B - floor spikes
+0C - roof spikes
+0D - freezes
+0E - freezes
+0F - Brick
+10 - ? block (coin)
+11 -Bricks with single coin
+12 - Wooden blocks
+13 - Colored Note Blocks - movable four directions
+14 - Note Blocks - movable two directions
+15 - Wooden Blocks - movable
+16 - Coins
+2F - wall block (5 bytes) 
+
+
+- Object Bank 4 (Pipe):
+
+00 - jump through thick platform (glitch graphics)
+01 - solid thick platform (glitch graphics)
+02 - solid thick platform (glitch graphics)
+03 - solid thick platform (glitch graphics) same as 02
+04 - solid thick platform (glitch graphics)
+05 - solid thick platform (glitch graphics)
+06 - solid thick platform (glitch graphics)
+07 - three wide solid platform (glitch graphics)
+08 - two wide solid platform (glitch graphics)
+09 - small pipe (1)
+0A - small pipe (2) (death on top default)
+0B - bridge like pass through platform (glitch graphics)
+0C - bridge like pass through platform (glitch graphics)
+0D - ??? (5 byte)
+0E - jump through platform (glitch graphics)
+0F - Brick
+10 - ? block (coin)
+11 -Bricks with single coin
+12 - Wooden blocks
+13 - Colored Note Blocks - movable four directions
+14 - Note Blocks - movable two directions
+15 - Wooden Blocks - movable
+16 - Coins
+17 - Downward Pipe (CAN go down)
+18 - Downward Pipe (CAN'T go down)
+19 - Downward Pipe (CAN go down;; ignores pointers)
+1A - Upward Pipe (CAN go up)
+1B - Upward Pipe (CAN'T go up)
+1C - Rightward Pipe (CAN go in)
+1D - Rightward Pipe (CAN'T go in)
+1E - Leftward Pipe (CAN go in)
+1F - Leftward Pipe (CAN'T go in)
+14 - Note block
+15 - Wooden Blocks - movable
+16 - Coins
+17 - Downward Pipe (CAN go down)
+18 - Downward Pipe (CAN'T go down)
+19 - Downward Pipe (CAN go down;; ignores pointers)
+1A - Upward Pipe (CAN go up)
+1B - Upward Pipe (CAN'T go up)
+1C - Rightward Pipe (CAN go in)
+1D - Rightward Pipe (CAN'T go in)
+1E - Leftward Pipe (CAN go in)
+1F - Leftward Pipe (CAN'T go in)
+20 - Bullet Bill Machine
+21 - Bridge
+22 - Silver Coins (appear when you hit a P-Switch)
+23 - Waterfall (5 bytes)
+24 - Water (moves to left) (5 bytes)
+25 - Water (still) (5 bytes)
+26 - Water (moves to right) (5 bytes)
+27 - Weird Background Object (5 bytes)
+28 - Blue X-Blocks (5 bytes)
+29 - Weird Quicksand (doesn't act like it) (5 bytes)
+2A - Weird Orange Background (5 bytes)
+2B - White Turtle Blocks
+2C - Double-Ended Vertical Pipe
+2D - ??? (5 bytes?)
+2E - Bonus Level Wall? (5 bytes)
+2F - Horizontal pipe (forever)
+30 - crashes (5 byte?)
+31 - down pipe
+32 - rightward pipe
+33 - crash
+34 - ??? solid
+35 - nothing?
+36 - nothing? 
+37 - ??? diamond shape (pass through) glitch graphics
+38 - object eraser?
+39 - nothing?
+3A - nothing?
+3B - ??passs through mess
+3C - huge mess
+3D - 44 crashes game (reset)
+45 - 4C black spot
+4D - ??? spot
+4E - ???
+4F - nothing
+50 - black spot 
+51 - Mushroom Blocks from SMB2 (5 bytes)
+52 - '1' Blocks (5 bytes)
+53 - '2' Blocks (5 bytes)
+54 - '3' Blocks (5 bytes)
+55 - Silver bricks (5 bytes)
+56 - Dotted Line Block
+57 - rightward boost pads 
+58 - blue platform
+59 - Rope
+5A - Giant veggie
+5B - regular veggie
+5C - small veggie
+5D -  Donut Spikes
+5E - spikes
+5F - White Blocks(5 bytes)
+60 - stairs
+61 - ghost house platform
+62 - ghost house pillar
+63 - veggie coin
+64 - vegiie coin clump (5 coins)
+65 - veggie 1up
+66 - veggie nothing (Ace/e?)
+67-  veggie poison shroom
+68-  invisible tanooki block
+69 - veggie monty mole
+6A - Sand from SMB2 (5 bytes)
+6B - nothing?
+6C - small triangle
+6D - black spot
+6E - upside down bullet bill launcher
+6F - ?? (5 bytes)
+70 - deleter
+71 - 5 bytes
+72 - 74 crashes game (reset)
+78 - level end black
+79 - slope (ghost house?)
+7A - slope (ghost house?)
+7B - platform
+7C - platform
+7D - platform
+7E - veggie w/ giant turtle shell!! (not giant, but large)
+7F - SMB1 flagpole
+80 - SMB1 blocks (5 byte)
+81 - bg hill
+82 - small bg hill
+83 - bg hill with weird things
+84 - nothing
+85 - door
+86 - purple door
+87 - vine
+88 - small bg piecs
+89 - reset
+8A - reset
+8B - reset
+8C - reset
+8D - reset
+8E - reset
+8F - reset
+90 - reset
+
+
+- Object Bank 4 (Tank):
+
+2f - ground
+2e -
+2d -
+2c - double pipe
+
+
+- Object Bank 4 (All):
+
+54 - pink pick up blocks (5 bytes)
+5A - Giant veggie
+5B - regular veggie
+5C - small veggie
+63 - veggie coin
+64 - vegiie coin clump (5)
+65 - veggie 1up
+66 - veggie nothing (Ace/e?)
+67-  veggie poison shroom
+68-  invisible tanooki block
+69 - veggie monty mole
+70 - deleter
+78 - level end black
+79 - slope (ghost house?)
+7A - slope (ghost house?)
+7B - platform
+7C - platform
+7D - platform
+7E - veggie w/ giant turtle shell!! (not giant, but large)
+7F - SMB1 flagpole
+80 - SMB1 blocks (5 byte)
+81 - bg hill
+82 - small bg hill
+83 - bg hill with weird things
+84 - ntohing
+85 - door
+86 - purple door
+87 - vine
+88 - small bg piecs
+
+
+~~~~~ ENEMY DATA ~~~~~
+
+
+
+x1BB - x21D = Overworld Enemies
+x2B2 - x2C2 = Bonus Room Enemies
+
+
+
+The following format applies:
+
+- All Enemies:
+
+AA BB CC DD EE
+AA = Sprite Bank (00 or 01)
+BB = Sprite Type
+CC = X-Position
+DD = Y-Position
+EE = Parameter, usually 0 for most purposes. However, for things like A coins, 0 is the first coin, 1 is the second, and so on.
+
+
+Example Enemy:
+
+
+x1BA - Overworld 1st Enemy Sprite Bank (00)
+
+00 = Sprite Bank 0
+
+
+x1BB - Overworld 1st Enemy Sprite Type (72)
+
+72 = Goomba
+
+
+x1BC - Overworld 1st Enemy X-Position (14)
+
+00 = Left Level Border
+01 = Moves 1 block to the right
+02 = Moves 2 blocks to the right
+etc.
+
+
+x1BD - Overworld 1st Enemy Y-Position (19)
+
+...
+18 = 2 Blocks above Lower Screen Border
+19 = 1 Block above Lower Screen Border
+1A = Lower Screen Border
+1B = Disappears
+
+(The lower the number, the higher the enemy)
+
+
+x1BE - Overworld 1st Enemy Parameter (00)
+
+00 = None
+
+
+~~~~~ ENEMY SPRITE BANKS ~~~~~
+
+00 = Sprite Bank 0
+01 = Sprite Bank 1
+
++ denotes new E-reader content
+* denotes E-reader specific (won't function) in normal levels
+^ denotes E-reader specific (won't display correctly) in normal levels
+
+
+- Sprite Bank 0:
+
+00 - nothing
+01 - freezes game/glitches
+02 - amazing flyin' Hammer Bros Hammers   (both need or no scroll)+^
+03 - winged platform (amazing hammer bros)     (both needed or no scroll)+^
+04 - stationary blue whistle (enemy)^
+05 - floating tracking blue whistle (enemy)^
+06 - music note block 
+07 -  door to secret toad house
+08 - nothing (invisible door?)
+09 - doomship anchor
+0A - 3-up moon+
+0B - free fall 1-up mushroom
+0C - free falling starman
+0D - free falling mushroom
+0E - Koopa kid (regular type)
+0F - Solid block (falls) (freezes game/glitches)
+10 - Magikoopa only once+
+11 - magikoopa's magic+
+12 - Big Boo+
+13 - Wiggler+^
+14 - stationary and hurts?
+15 - SMW goomba (with parachute)+^
+16 - bob-omb (with winder)
+17 - SMW goomba+^
+18 - Bowser (glitchy)
+19 - free falling fire flower
+1A - Key+
+1B - Music note block
+1C - nothing (glitch/flash)
+1D - stops free scrolling (SMB1 rising platform)
+1E - free-falling leaf
+1F - growing-vine
+20 - SMB1 platform (falls when your on) (small)
+21 - flshing P's  (does nothing)
+22 - mini-fire-flower???? (does nothing)
+23 - ??? needle???wand??? (does nothing)
+24 - platform (drift left) ??? (glitch)
+25 - nothing???
+26 - wooden platform (hop on and goes right) (2-2)a
+27 - wooden platform (side to side)
+28 - wooden platform (up and down)
+29 - Spike 
+2A - Ptooie 
+2B -  Kuribo Goomba 
+2C - left-drifting platform  (glitchy)
+2D - Boss Bass
+2E - raising platforms (bowser's castle)
+2F - Boo
+30 - hot foot
+31 - ??? floats there and hurts (bottom stretch) 
+32 - ??? floats there and hurts(top stretch)
+33 - stationary nipper
+34 - toad??  (doesn't move/hurt, just turns to face you)
+35 - GLITCH
+36 - wooden platform (drift left, fall on touch) (1-4)
+37 - wooden platform (side to side) (less move)
+38 - wooden platform (up and down) (Less move)
+39 - wandering nipper 
+3A -  platform that falls when you are on it
+3B - jumping cheep-cheep (4-2)
+3C - Wooden log (falls right away) (moving wired platform)
+3D - fire-spitting nipper
+3E - wooden log (floating on water)
+3F - dry bones
+40 - white block thrower
+41 - panel card
+42 - pond jumping cheep cheep (ascending)
+43 - pond jumping cheep cheep (horizontal)
+44 - wooden log (falls when hop on)  (wire platform)
+45 - ??? walks away/ randomly, hurts (hot foot)
+46 - Ptooie in plant
+47 - nothing???
+48 - ??/ (bowser flame?) (baby cheep-cheep)
+49 - magic ball
+4A - odd magic ball
+4B - boom boom
+4C - flying boom-boom
+4D - lil spark+^
+4E - Giant spark+7
+4F - Free chainchomp
+50 - bob-omb about to explode (like end of ship in 8)
+51 - double rotodisc (counterclockwise both)
+52 - chest w/ nothing in it?
+53 - ceiling podoboo
+54 - ???
+55 - bob-omb (windup)
+56 - right sideways piarhna plant??  (glitchy)
+57 - left sideways piarhna plant??  (glitchy)
+58 - Fire Chomp  
+59 - Fire snake 
+5A - single rotodisc (clockwise)  
+5B - single rotodisc (counterclockwise) 
+5C - breaking brick
+5D - whirlwind (2-sand level)
+5E - double rotodisc (one each way, meet at sides)
+5F - double rotodisc (one each way)
+60 - double rotodisc (clockwise both)
+61 - blooper w/ kids
+62 - Blooper
+63 - Big Bertha (baby is glitchy)
+64 - cheep-cheep (hop)
+65 - bubble current (up)
+66 - bubble current (down)
+67 - fire locust 
+68 - upside-down buzzy beetle
+69 - upside-down spiny
+6A - Blooper w/kids  (releases)
+6B - Micro-goomba jumping block
+6C - Green koopa troopa
+6D - Red koopa troopa
+6E - Green bouncing Paratroopa
+6F - Red vertical Koopa paraTroopa
+70 - buzzy beetle
+71 - spiny
+72 - goomba
+73 - red paragoomba
+74 - paragoomba with kids
+75 - moving thing (horizontal) (hurts) (Bowser flame)
+76 - cheep cheep (falls)
+77 - green cheep-cheep (back and forth)
+78 - bullet bill (stationary)
+79 - bullet bill (right) (single)
+7A - Giant koopa (green)
+7B - Giant Koopa (red)
+7C -Giant goomba 
+7D - giant pirahna plant
+7E - green giant para troopa 
+7F - giant pirahna plant
+80 - green paratoopa (horizontal flyer)
+81 - hammer brother
+82 - boomerang bros
+83 - lakitu (spinies)
+84 - spiny (red spiny egg - hatches)
+85 - green spiny ball
+86 - sledge brother
+87 - fire brother
+88 - nothing? (yellow cheep cheep)
+89 - chain chomp
+8A - thwomp   
+8B - thwomp (left smash) 
+8C - thwomp (right smash)
+8D - thwomp (up) 
+8E - thwomp (up left) 
+8F - thwomp (down left) 
+90 - red spinner (weight dependant)
+91 - red spinner (clockwise, constant)
+92 - red spinner (clockwise, periodical)
+93 - red spinner (counterclockwise, peridical)
+94 - giant [?] block, 3 lives
+95 - giant [?] block, mushroom
+96 - giant [?] block, fire flower
+97 - giant [?] block, super leaf (kinda red)
+98 - giant [?] block, tanooki suit 
+99 - giant [?] block, frog suit 
+9A - giant [?] block, hammer suit 
+9B - chargin' chuck +
+9C - ball (mini-game 2)
+9D - flame (up) (airship)
+9E - falls down (podoboo) (comes up)
+9F - parabeetle (glitch)
+A0 - green piarhna plant, up, 2 leaf
+A1 - red pirahna plant,  down, 1 leaf
+A2 - red pirahna plant, up, 2 leaf
+A3 - red pirahna plant, down, 2 leaf 
+A4 - green fire-spitting plant (up) (one shot), 2 leaf
+A5 - red fire-spitting plant (down) (one shot), 1 leaf
+A6 - red fire-spitting plant (up) (one shot), 2 leaf
+A7 - red fire-spitting plant ( down) (one shot), 2 leaf
+A8 - arrow platform  up
+A9 - arrow platform interactive
+AA - ship propeller
+AB - nothing
+AC - flame (left) (airship)
+AD - Rocky Wrench
+AE - spinning platform (air ship threads)
+AF - angry sun
+B0 - block (hurts from side) (glitch) (big bullet (still))
+B1 - flame (right) (airship)
+B2 - flame (down) (airship)
+B3 - red spinning platform (mush20)+
+B4 - floating thing, hurts (glitch)
+B5 - free roaming coin+
+B6 - bomb (new)+
+B7 - cycling item block (mush8)+
+B8 - bouncing star
+B9 - firebar (center rotate)  (freezes/ removes all other enemies)+
+BA - freezes
+BB - springboard+
+BC - SMW extendy blocks (horz and vert)+
+BD - SMW extendy blocks (vertical)+
+BE - SMW extendy blocks (horizontal)+
+BF - stopwatch (no effect noticed)+
+C0 - ball (mini-game 2)+
+C1 - P-switch that turns enemies into silver coins)+
+C2 - silver free-roam coin+
+C3 - POW block+
+C4 - pink block ("0")+ (stick on other surfaces, each block can be "picked up" as many times as the number says
+C5 - star counter/goal for SMW (glitchy)+^
+C6 - yellow ! switch
+C7 - freezes  (stops scrolling at point)
+C8 - freezes ( 6 bytes 11/31/41 30) , (5 bytes 20) (effects vert scroll)
+C9 - nothing
+CA - freezes
+CB - freezes
+CC - nothing
+CD - coin counter (white house levels)
+CE - lock (for key)
+CF - Boomerang
+D0 - Thwimp +^
+D1 - propelling enemy, goes in spurts  (torpedo)+
+D2 - bony beetle+
+D3 - falling spike+
+D4 - falls down through ground, doesn't hurt 
+D5 - floats/flutters down, hurts 
+D6 - lil spark  (better)
+D7 - enemy, loop-di-loop, then straight (top kills it) bat?
+D8 - flying pirahna plants (glitch)+^
+D9 - Amazing flying hammer bros.+
+DA - free falling cape feather
+DB - 1up in bubble+
+DC - coin stream (moves as you do/control)
+DD - rotating checkered block (big)(ghost house 2) (counterclock)+
+DE - rotating checkered block (small) (counterclock)+
+DF - smb1 balance/scale
+E0 - freezes (stops scrolling)
+E1 - freezes
+E2 - SMB1 platform, falls
+E3 - checkered rotating block, you control the rotation +
+E4 - falling glitched thing, no effect
+E5 - pinball bumpers (vertical)+
+E6 - pinball bumpers (horizonatl)+
+E7 - spike donut lifts+
+E8 - rotating ball, when you land on it, it moves in the direction it was pointing+ 
+E9 - wooden platform, hops up, then down, freezes right now
+EA - freezes
+EB - slowly drifts downward, pickupable
+EC - Rip Von Fish+
+ED - Flurry+^
+EE - porcupine? (weak to fire, can't stomp)+^
+EF - floating enemy, hurts 
+F0 - Monty Mole +^
+F1 - poison mushroom+
+F2 - Bumpty penguin +^
+F3 - sliding/aggressive penguin (glitch)+^
+F4 - freezes
+F5 - freezes
+F6 - freezes
+F7 - freezes
+F8 - freezes
+F9 - freezes (E-coin)
+FA - Ace Coin (gives 1-up) only 1  (freezes in second spot)
+FB - red spinner (constant, counterclockwise)
+FC - 2 wide platform, glitched, no effect
+FD - coin counter (3up style) (freezes)
+FE - green fire-spitting plant, vertical, 2 shots)
+FF - red fire-spitting plant, horizontal, 2 shots)
+
+
+- Sprite Bank 1:
+
+60 - infinite cheep cheeps?
+67 - ?
+89 - freezes
+90 - bullet bill generator  (both ways)
+91 - missle bill generator (both ways)
+92 - rocky wrench generator
+93 - 8 way rotate cannon
+94 - goomba generator (left)
+95 - goomba generator (right)
+96 - cannonball generator (left)
+97 - giant cannonball generator (left)
+98 - cannonball generator (up left)
+99 - cannonball generator ( up right)
+9A - cannonball generator (down left)
+9B - cannonball generator (down right)
+9C - cannonball generator (up left)
+9D - cannonball generator (up right)
+9E - cannonball generator (down left)
+9F - cannonball generator (down right)
+A0 - cannonball generator ( right)
+A1 - giant cannonball generator (right)
+A2 - bob-omb generator (left)
+A3 - bob-omb generator (right)
+A4 - laser
+A5 - (aquatic?) things that can be fireballed
+A6 - (aquatic?) things that can be fireballed
+A7 - autoscrolling  (00 0B - airship 1)
+A8 - nothing
+A9 - big weird thing, takes you to bonus room?
+AA - nothing
+AB - some autoscroll thing
+AC - freezes
+AD - freezes
+AE - freezes
+AF - freezes
+
+
+- Alternate Sprite Bank 0 List:
+
+*00: -
+01: -
+02: [x04] SMW hammer bros fountain
+03: [x04] SMW hammer bros platform
+04: [x04] Stationary bullet bill
+05: [x04] UO (turning + jumpkill)
+06: Noteblock (forces mario up-down)
+07: -
+08: -
+09: Doomship anchor
+0A: 3-up moon
+0B: 1-up mushroom
+0C: Invincibility star
+0D: Power mushroom
+0E: Koopa Kid
+*0F: [0C] Bowser Statue
+value = behavior
+10: [0C] Magikoopa
+11: [0C] Magikoopa's magic
+12: [0B] Big boo
+13: [06] Wiggler
+14: [0C] Bowser statue fireball
+15: [06] SMW Parachute Goomba
+16: [06] Parachute Bobombs
+17: [06] SMW Goomba
+18: Bowser!
+19: Fireflower
+1A: SMW key
+1B: Noteblock
+1C: UO
+1D: SMB1 rising platform
+1E: Raccoon leaf
+1F: Growing beanstalk
+20: SMB1 falling platform
+21: game card
+22: game card
+23: game card
+24: Cloud platform left
+25: -
+26: Wooden platform (jump -> left)
+27: Wooden platform left-right
+28: Wooden platform up-down
+29: Spike
+2A: Walking spikeball piranha
+2B: Kuribo goomba
+2C: UO
+2D: Big fish (world 3-3)
+2E: Rising platform (bowser's castle)
+2F: Boo
+30: Walking candle flame
+31: UO
+32: UO
+33: Nipper
+34: UO (changes level background)
+35: UO (game gets stuck)
+36: Wooden platform (jump -> fall)
+37: Wooden platform left-right
+38: Wooden platform up-down
+39: Nipper
+3A: UO
+3B: Cheep cheep (world 3-2)
+3C: UO
+3D: Fire spitting nipper
+3E: Wooden platform drifting
+3F: Dry bones
+40: White block thrower
+41: Card slotmachine
+42: Cheep cheep pond leap right
+43: Cheep cheep pond leap left
+44: UO (looks like wooden platform)
+45: UO (walks random)
+46: Spikeball piranha stationary
+47: -
+48: UO (floats right + jumpkill)
+49: -
+4A: Fortress ? ball
+4B: Boom boom
+4C: Flying boom boom
+4D: [0D] smw spark
+4E: [0D] giant smw spark
+4F: UO (jumps away from mario)
+50: Bob-omb
+51: surroundive boos
+52: Small item chest
+53: Ceiling fireball
+54: UO (changes to unwalkable object)
+55: Bob-omb
+56: UO (jump = shell)
+57: UO (jump = shell)
+58: chomp thing that shoots fire and explodes
+59: fire snake thing
+5A: UO (moves diagonal)
+5B: UO (moves diagonal)
+5C: Breaking brick
+5D: Tornado
+5E: UO (moves diagonal)
+5F: UO (moves diagonal)
+60: UO (moves diagonal)
+61: Blooper
+62: Blooper + kids release
+63: Big fish spits kid
+64: Red cheep cheep
+65: Bubbles up
+66: Bubbles down
+67: Lotus flower
+68: Upside down buzy beetle
+69: Upside down spiney
+6A: Blooper + kids
+6B: Jumping brick
+6C: Green koopa troopa
+6D: Red koopa troopa
+6E: Green koopa paratroopa
+6F: Red koopa paratroopa up-down
+70: Buzy beetle
+71: Spiney
+72: Goomba
+73: Paragoomba
+74: Paragoomba + kids
+75: Lemmy koopa's ball
+76: Red cheep cheep
+77: Green cheep cheep
+78: Bullet bill
+79: Flashing bullet bill
+Giant world:
+7A: UO (big + walks)
+7B: UO (big + walks)
+7C: UO (big + walks)
+7D: UO (rises + jumpkill)
+7E: UO (jumps)
+7F: UO (rises + jumpkill)
+-End Giants
+80: Red koopa paratroopa left-right
+81: Hammer bros
+82: Boomerang bros
+83: Lakitu
+84: Red Spiny Egg
+85: Green Spiny Egg
+86: Fat hammer bros
+87: Fire bros
+88: -
+89: Chain Chomp
+8A: Thwomp
+8B: Thwomp left
+8C: Thwomp right
+8D: Thwomp ?
+8E: Thwomp ?
+8F: Thwomp ?
+90: Turn platform balance
+91: Turn platform spin
+92: Turn platform stop-spin
+93: Turn platform stop-spin
+94: Giant ? Block - 3UP
+95: Giant ? Block - Mushroom
+96: Giant ? Block - Flower
+97: Giant ? Block - Leaf
+98: Giant ? Block - Tanooki Suit
+99: Giant ? Block - Frog Suit
+9A: Giant ? Block - Hammer Suit
+*9B: [09] Charging chuck
+value = behaviour
+9C: UO (grab + kick diagonal)
+9D: Fire up
+9E: UO (falls)
+9F: Parabeetle
+A0: Piranha plant red
+A1: Piranha plant green
+A2: Piranha plant red upside down
+A3: Piranha plant green upside down
+A4: Fire piranha plant red
+A5: Fire piranha plant green
+A6: Fire piranha plant red upside down
+A7: Fire piranha plant green upside down
+A8: Arrow platform up
+A9: Arrow platform interactive
+AA: airship fan
+AB: -
+AC: Fire left
+AD: Wrench thrower
+AE: Moving Nuts
+AF: Sun
+B0: Big Cannon Ball
+B1: Fire right
+B2: Fire down
+B3: Turning interactive platform
+B4: Podobo (follows mario)
+B5: Coin
+B6: Bomb
+B7: Translucent block + slotmachine
+B8: Bouncing star
+*B9: Fire stick
+Spin Type:
+0 Center Spin Clockwise
+1 Center Spin Anti-Clockwise
+2 Clockwise
+3 Anti-Clockwise
+Bar Length:
+0 Short
+4 Medium
+8 Long
+C Very Long
+BA: Block-Path
+BB: Mobile trampoline
+BC: Shuffle blocks variable
+BD: Shuffle blocks vertical
+BE: Shuffle blocks horizontal
+BF: Clock (doesn't work)
+C0: UO (grab + kick diagonal)
+C1: Silver p-switch
+C2: Grey coin
+C3: Pow block
+C4: Empty 0 block
+C5: SMW goal
+C6: !-switch
+C7: stop screen
+C8: -
+C9: -
+*CA: ?? scrolling things down
+*CB: ?? scrolling things up
+CC: -
+CD: Coin status toadhouse block
+CE: Keyhole
+CF: Boomerang
+D0: [0D] Thwimp
+D1: Torpedo
+D2: [0D] Boney beetle
+D3: Falling spike
+D4: UO (falls)
+D5: UO (floats left-right + falling down)
+D6: [0D] (follows wall)
+D7: [0E] SMW Bat
+D8: Jumping pipe piranha plant
+D9: SMW hammer bros
+DA: Cape feather
+DB: 1-up bubble
+DC: Coin Path
+DD: Big checker block
+DE: Small checker block
+DF: SMB1 balance platform
+E0: -
+E1: -
+E2: SMB1 fall platform
+E3: UO (water sound)
+E4: Big root
+*E5: SMW2 Flippers horizontal
+0 - left entry
+1 - right entry
+*E6: SMW2 Flippers vertical
+0 - up entry
+1 - down entry
+E7: Big spike
+E8: SMW2 Spin Platform
+E9: WEIRDSHIT NEEDS ATTENTION
+EA: -
+EB: SMB2 Hooper
+EC: Rip-Van Fish
+ED: [0F] Flurry (unpickable)
+EE: [0E] Porcupo
+EF: [10] Jelectro
+F0: Monty mole
+F1: Poison mushroom
+F2: [0F] SMW2 Baby Pengiun
+F3: [0F] Stronger penguin
+F4: -
+F5: -
+*F6: weird scroller things again
+F7: -
+F8: -
+F9: E-coin
+FA: A-coin
+FB: Spin platform counter clockwise
+FC: UO (falls)
+FD: Coin status 1-up block
+*FE: Venus Fire Trap Vertical
+0 - Green Up (1 shot)
+1 - Red Down (1 shot)
+2 - Red Up (2 shot)
+3 - Red Down (2 shot)
+*FF: Venus Fire Trap Horizontal
+0 - Red Right (2 shot)
+1 - Red Left (2 shot)
+103: P-Wing
+104: flashing mushroom
+*108: object chest
+0 - frog
+1 - mushroom
+2 - flower
+3 - leaf
+4 - frog
+5 - tanooki
+6 - hammer suit
+7 - jugem's cloud
+8 - p-wing
+9 - star
+A - anchor
+B - hammer
+C - whistle
+D - music box
+E - feather
+F - boomerang
+10 - 1up
+11 - 3up
+*109: instant death spike
+value = fly type
+*10A: floating bubble
+0 - frog
+1 - mushroom
+2 - flower
+3 - leaf
+4 - frog
+5 - tanooki
+6 - hammer suit
+7 - jugem's cloud
+8 - p-wing
+9 - star
+A - anchor
+B - hammer
+C - whistle
+D - music box
+E - feather
+F - boomerang
+10 - 1up
+11 - 3up
+*10B: finish the level
+*10E: throwable egg
+value = how many times it's been used (ie, how slow is it too)
+10F: walktrhough giant tshell
+117: [14] parawiggler
+118: green koopa troopa
+119: blue boomerang bros
+11C: smb flag sprite
+*11F: lakitu
+00 - red
+01 - green
+121: weird teleport thing
+122: SMW ridable cloud
+125: Giant Boo Boss
+128: [x02] SMB Axe
+*12A: Boo
+value = chasing speed
+12B: score giver
+12C: cheep cheep on land
+*130: hammer bros platform (unridable)
+*131: whuh
+*132: whuh different color
+*133: note block thing
+138:
+139: flashing crap
+13A: like 138
+*13B: makes you pause before entering the screen it's in
+*13C:
+*13F: big boo that is nothing
+*140: weird bouncy thingy
+142: touch it and the game resets
+143: 142
+*144:
+147: untakable key
+148: 4-way note block
+14A: SMB Platform upwards
