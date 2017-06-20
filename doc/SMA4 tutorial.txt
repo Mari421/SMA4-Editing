@@ -37,7 +37,7 @@ SMA4 documents (for e-reader data, object data, sprite data, etc)
 SMA4 rom and .sav
 Hex editor
 
-Now that you have all of these tools, then that means you have to make your own level by using SMB3 workshop with SMB3 rom. You don't have to save through the rom, but
+Now that you have all of these tools, then that means you have to make your own level by using SMB3 workshop with SMB3 rom. In M3L, the hex "01 01 01" opens the level and the first 9 bytes contains for headers, so you skip the first 12 bytes. However you don't have to save through the rom, but
 save only for M3L level so you can be able to look at you level data in hex editor, but if its too confusing then try open your M3L level to workshop to find out what, and where you
 want to place your object in the right spot. So lets say once you set up your headers in your object data, then you have to put what object bank, length, Y position, X position, then object number.
 However if there is object that has the 2nd length, then you add an extra byte.
@@ -75,10 +75,10 @@ There were only 12 bytes for this data, because in SMA (Solar Magic Advance) did
 needs to be done. Example below:
 
    43 16 38 17 (For the downward pipe ONLY for source X, by Y "16" you MUST drop by one which is 15 because when mario enters the pipe then it can be able to take him
-                to the next room. As some others, you might do the same (or not?) according to this.)
+                to the next room. As some others, you might do the same (or not?) according to this pipe tutorial. The door is what you can ONLY type the same coordinate!)
       
-01 00 15 38 01 00 00 01 00 00 02 00 (The arrow represents of how many pointers you want to set up for the first 2 hex.)
-^     sX sY RR ?? dX dY sX sY ?? TT
+01 00 15 38 01 00 00 01 00 00 02 00 (The arrow represents of how many pointers you want to set up for the first 2 hex. The destination coordinate is always Y first before X, because I don't know what nintendo's developers is thinking, however Y IS FIRST BEFORE X!!)
+^     sX sY RR ?? dY dX sX sY ?? TT
 
 From below there is an hex number that you can put for your exit types.
 
@@ -92,7 +92,19 @@ Level Transport Exit Types
 5 - Drop from X, Y
 
 Block Movement:
-(XAIXER)
+
+As this stated in the other doc, here is the example of what is being used in Spiral Tower(x2A4):
+
+32 20 0E 1C 0F 10 0F 30 12 1D 0E 2C ("32" The first hex digit "3" is is the length and the 2nd digit "2" is the speed. The rest follows the distance for each direction you set up
+LS TD TD TD TD TD TD TD TD TD TD TD  for the block to move in the right direction.)
+
+First byte: ILLLLLSSS
+All following bytes: TTTTTTDD
+I = Initial Direction of Platform (0 = right, 1 = left)
+L = Length of platform
+S = Speed
+T = Distance to travel
+D = Direction (0 = right, 1 = left, 2 = up, 3 = down)
 
 Autoscroll Movement:
 
@@ -102,8 +114,8 @@ of what you're doing.
 
 Example:
 
-"00 00 00 13 0D 08 19 0C 08 FF FF FF" <--- You start with 00's first, then you can put the destination of the X, Y, and speed. Tip: by using 3-byte coin in workshop you can mark it to figure out
- ^^ ^^ ^^                                  which screen you want the autoscroll in each point you mark it. Let's say Y=13 X=19, then its "13 0D" and my speed will be "08" which it can scroll constantly.
+"00 00 00 13 0D 08 19 0C 08 FF FF FF" <--- You start with 00's first, then you can put the destination of the X, Y, and speed. Tip: by using 3-byte coin in SMB3 workshop you can mark it to figure out
+ ^^ ^^ ^^                                  which screen you want the autoscroll in each point you mark it. Let's say X=13 Y=19(0D), then its "13 0D" and my speed will be "08" which it can scroll constantly.
  XX YY SS
 
 That is the primary example of what you can do by following the tips to making it a little eaiser to track each spots as the scroll stops. However, if it scrolls to further or the Y position wasn't going up 
@@ -112,8 +124,7 @@ then you can go back and change destination to make it better.
 Example:
 
 "13 0D 08" <---- The X postion (13) scroll too further, and Y postion (0D) couldn't scroll normally. So, all you can do is to change the destination of whats right of what it suppose to scroll. So, I would change
-"13 0D 08" to "12 0A 08" so that can scroll diagonally up further until it gets to that destination. Be sure to put (69) Auto-scroll disabler onto your destination if you finish setting up your own autoscroll movements
-therefore the player won't be able to go backwards once scroll is finished.
+"13 0D 08" to "12 0A 08" so that can scroll diagonally up further until it gets to that destination. Be sure to put (69) Auto-scroll disabler onto your destination if you finish setting up your own autoscroll movements therefore the player won't be able to go backwards once scroll is finished.
 
 
 NOTE: In SMB3 version in GBA, there will won't be anything up there except for object data and sprites data, because everything applies to the other document if you are willing to edit maps, levels, etc. 
